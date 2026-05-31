@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { menu, ROUTES } from '@/constants';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/buttons/button';
 import StyledLink from '@/components/ui/styledLink';
 import ClientIcon from '@/assets/icons/client.svg';
 

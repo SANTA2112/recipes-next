@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/buttons/button';
 import { Input } from '@/components/ui/input';
 import type { FormType } from '@/constants';
 import type { ComponentPropsWithoutRef } from 'react';
