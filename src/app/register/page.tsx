@@ -4,7 +4,7 @@ import { Wrapper } from '@/components/ui/wrapper';
 
 const RegisterPage = () => {
   return (
-    <Wrapper>
+    <Wrapper className="flex items-center justify-center">
       <FormWrapper type="register">
         <Form type="register" />
       </FormWrapper>
