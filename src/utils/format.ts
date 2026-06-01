@@ -25,4 +25,4 @@ export const formatTime = (time: number) => {
   return parts.join(' ');
 };
 
-export const formatPortion = (count: number) => `${count} ${pluralize(count, 'порция', 'порции', 'порций')}`;
+export const formatServings = (count: number) => `${count} ${pluralize(count, 'порция', 'порции', 'порций')}`;

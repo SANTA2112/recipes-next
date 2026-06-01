@@ -1,23 +1,24 @@
-import { formatPortion, formatTime } from '@/utils/format';
+import { formatServings, formatTime } from '@/utils/format';
 import ClockIcon from '@/assets/icons/clock.svg';
 import PeopleIcon from '@/assets/icons/people.svg';
+import { ProxyImage } from '@/components/ui/proxy-image';
 
 interface Props {
   title: string;
   shortDesc: string;
   cookTime: number;
-  portions: number;
+  servings: number;
   image: string;
 }
 
 export const Recipe = (props: Props) => {
-  const { cookTime, image, portions, shortDesc, title } = props;
+  const { cookTime, image, servings, shortDesc, title } = props;
   return (
     <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-2 border-gray-100">
       <div className="aspect-video overflow-hidden">
-        <img
+        <ProxyImage
           className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-          src={`/api/image-proxy?url=${encodeURIComponent(image)}`}
+          src={image}
           alt={title}
           loading="lazy"
         />
@@ -32,7 +33,7 @@ export const Recipe = (props: Props) => {
           </div>
           <div className="flex items-center gap-1.5">
             <PeopleIcon className="w-4 h-4 text-orange-500" />
-            <span className="shrink-0">{formatPortion(portions)}</span>
+            <span className="shrink-0">{formatServings(servings)}</span>
           </div>
         </div>
       </div>
