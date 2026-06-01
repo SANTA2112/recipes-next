@@ -4,7 +4,7 @@ import { Info } from '@/components/ui/cards/info';
 import { infoCards, achievements, ROUTES } from '@/constants';
 import Link from 'next/link';
 
-const About = () => {
+const AboutPage = () => {
   const [info1, info2] = infoCards;
   return (
     <div>
@@ -37,4 +37,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default AboutPage;
