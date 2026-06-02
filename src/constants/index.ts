@@ -1,8 +1,8 @@
 import type { ComponentType, SVGProps } from 'react';
 
+import BookIcon from '@/assets/icons/book.svg';
 import HeartIcon from '@/assets/icons/heart.svg';
 import PeopleIcon from '@/assets/icons/people.svg';
-import BookIcon from '@/assets/icons/book.svg';
 import QualityIcon from '@/assets/icons/quality.svg';
 
 export interface Achievement {
@@ -30,6 +30,7 @@ export const ROUTES = {
   login: '/login',
   register: '/register',
   recipe: (slug: string) => `/recipes/${slug}`,
+  editRecipe: (slug: string) => `/my-recipes/${slug}`,
 } as const;
 
 export const infoCards = [
