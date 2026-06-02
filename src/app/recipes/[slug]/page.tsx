@@ -9,7 +9,7 @@ import ArrowIcon from '@/assets/icons/arrow.svg';
 import ClockIcon from '@/assets/icons/clock.svg';
 import PeopleIcon from '@/assets/icons/people.svg';
 import PrintIcon from '@/assets/icons/print.svg';
-import { RecipeCalc } from '@/app/lib/recipe-calc';
+import { RecipeCalc } from '@/lib/recipe-calc';
 import { CookSteps } from '@/components/ui/cook-steps';
 
 const RecipePage = () => {

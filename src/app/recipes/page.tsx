@@ -1,4 +1,4 @@
-import { RecipesFilter } from '@/app/lib/recipre-filter';
+import { RecipesFilter } from '@/lib/recipre-filter';
 import { Recipe } from '@/components/ui/cards/recipe';
 import { Wrapper } from '@/components/ui/wrapper';
 import { ROUTES } from '@/constants';
