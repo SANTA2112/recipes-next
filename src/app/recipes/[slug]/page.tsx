@@ -100,12 +100,13 @@ const RecipePage = async ({ params }: { params: Promise<{ slug: string }> }) => 
       <div className="relative h-96 overflow-hidden">
         <ProxyImage src={image} alt={title} className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent"></div>
-        <div className="absolute bottom-0 left-0 right-0 container mx-auto px-4 pb-8">
-          <Link href={ROUTES.recipes}>
-            <button className="mb-4 flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm text-white rounded-full hover:bg-white/30 transition-all">
-              <ArrowIcon className="w-5 h-5" />
-              <span>Назад</span>
-            </button>
+        <div className="absolute bottom-0 left-0 right-0 container mx-auto px-4 pb-8 flex flex-col items-start">
+          <Link
+            href={ROUTES.recipes}
+            className="mb-4 flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm text-white rounded-full hover:bg-white/30 transition-all"
+          >
+            <ArrowIcon className="w-5 h-5" />
+            <span>Назад к списку</span>
           </Link>
           <h1 className="text-4xl text-white mb-4">{title}</h1>
           <p className="text-white/90 text-lg mb-4">{shortDesc}</p>
