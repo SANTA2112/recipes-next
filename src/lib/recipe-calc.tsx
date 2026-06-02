@@ -1,9 +1,9 @@
 'use client';
-import { CalcButton } from '@/components/ui/buttons/calc';
 import { useMemo, useState } from 'react';
 
-import PlusIcon from '@/assets/icons/plus.svg';
 import MinusIcon from '@/assets/icons/minus.svg';
+import PlusIcon from '@/assets/icons/plus.svg';
+import { CalcButton } from '@/components/ui/buttons/calc';
 import { formatServings } from '@/utils/format';
 
 interface Props {

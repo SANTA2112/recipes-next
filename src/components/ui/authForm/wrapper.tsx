@@ -1,7 +1,8 @@
-import { Header } from '@/components/ui/authForm/header';
-import { formOptionsByType, type FormType } from '@/constants';
 import Link from 'next/link';
 import type { ComponentPropsWithoutRef } from 'react';
+
+import { Header } from '@/components/ui/authForm/header';
+import { formOptionsByType, type FormType } from '@/constants';
 
 interface Props extends ComponentPropsWithoutRef<'div'> {
   type: FormType;

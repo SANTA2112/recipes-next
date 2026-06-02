@@ -1,8 +1,9 @@
-import { RecipesFilter } from '@/lib/recipre-filter';
+import Link from 'next/link';
+
 import { Recipe } from '@/components/ui/cards/recipe';
 import { Wrapper } from '@/components/ui/wrapper';
 import { ROUTES } from '@/constants';
-import Link from 'next/link';
+import { RecipesFilter } from '@/lib/recipre-filter';
 
 const RecipesPage = () => {
   const recipes = Array.from({ length: 10 }, (_, i) => i + 1);

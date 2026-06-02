@@ -1,8 +1,9 @@
+import Link from 'next/link';
+
 import { Button } from '@/components/ui/buttons/button';
 import { AchievementComponent } from '@/components/ui/cards/achievement';
 import { Info } from '@/components/ui/cards/info';
 import { infoCards, achievements, ROUTES } from '@/constants';
-import Link from 'next/link';
 
 const AboutPage = () => {
   const [info1, info2] = infoCards;

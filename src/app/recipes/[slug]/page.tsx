@@ -1,21 +1,29 @@
-'use client';
-import { useRouter } from 'next/navigation';
-import { ProxyImage } from '@/components/ui/proxy-image';
-import { Wrapper } from '@/components/ui/wrapper';
-
-import { formatServings, formatTime } from '@/utils/format';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
 
 import ArrowIcon from '@/assets/icons/arrow.svg';
 import ClockIcon from '@/assets/icons/clock.svg';
 import PeopleIcon from '@/assets/icons/people.svg';
 import PrintIcon from '@/assets/icons/print.svg';
-import { RecipeCalc } from '@/lib/recipe-calc';
 import { CookSteps } from '@/components/ui/cook-steps';
+import { ProxyImage } from '@/components/ui/proxy-image';
+import { Wrapper } from '@/components/ui/wrapper';
+import { ROUTES } from '@/constants';
+import { RecipeCalc } from '@/lib/recipe-calc';
+import { formatServings, formatTime } from '@/utils/format';
 
-const RecipePage = () => {
-  const router = useRouter();
+async function getRecipe(slug: string) {
+  return { slug };
+}
 
-  const recipe = {
+const RecipePage = async ({ params }: { params: Promise<{ slug: string }> }) => {
+  const { slug } = await params;
+
+  const recipe = await getRecipe(slug);
+
+  if (!recipe) return notFound();
+
+  const recipes = {
     title: 'Борщ классический',
     shortDesc: 'Традиционный украинский борщ с говядиной и сметаной',
     cookTime: 90,
@@ -85,11 +93,7 @@ const RecipePage = () => {
     ],
   };
 
-  const { cookTime, image, servings, shortDesc, title, ingredients, instructions } = recipe;
-
-  const handleGoBack = () => {
-    router.back();
-  };
+  const { cookTime, image, servings, shortDesc, title, ingredients, instructions } = recipes;
 
   return (
     <div>
@@ -97,13 +101,12 @@ const RecipePage = () => {
         <ProxyImage src={image} alt={title} className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent"></div>
         <div className="absolute bottom-0 left-0 right-0 container mx-auto px-4 pb-8">
-          <button
-            className="mb-4 flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm text-white rounded-full hover:bg-white/30 transition-all"
-            onClick={handleGoBack}
-          >
-            <ArrowIcon className="w-5 h-5" />
-            <span>Назад</span>
-          </button>
+          <Link href={ROUTES.recipes}>
+            <button className="mb-4 flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm text-white rounded-full hover:bg-white/30 transition-all">
+              <ArrowIcon className="w-5 h-5" />
+              <span>Назад</span>
+            </button>
+          </Link>
           <h1 className="text-4xl text-white mb-4">{title}</h1>
           <p className="text-white/90 text-lg mb-4">{shortDesc}</p>
           <div className="flex items-center gap-6 text-white">

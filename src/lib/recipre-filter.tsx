@@ -1,11 +1,11 @@
 'use client';
-import { Input } from '@/components/ui/input';
-
-import SearchIcon from '@/assets/icons/search.svg';
-import FilterIcon from '@/assets/icons/filter.svg';
-import { popularIngredients } from '@/constants';
-import { TabButton } from '@/components/ui/buttons/tab';
 import { useState } from 'react';
+
+import FilterIcon from '@/assets/icons/filter.svg';
+import SearchIcon from '@/assets/icons/search.svg';
+import { TabButton } from '@/components/ui/buttons/tab';
+import { Input } from '@/components/ui/input';
+import { popularIngredients } from '@/constants';
 
 export const RecipesFilter = () => {
   const [isOpenFilters, setIsOpenFilters] = useState(false);
