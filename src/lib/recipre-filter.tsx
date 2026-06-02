@@ -24,6 +24,9 @@ export const RecipesFilter = () => {
         >
           <FilterIcon className="w-5 h-5 text-gray-600" />
           <span className="font-medium">Фильтры</span>
+          <span className="ml-2 px-2.5 py-0.5 bg-linear-to-r from-orange-400 to-red-500 text-white text-sm rounded-full shadow-sm">
+            10
+          </span>
         </button>
       </div>
       {isOpenFilters && (
