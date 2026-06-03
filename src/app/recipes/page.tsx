@@ -9,7 +9,7 @@ const RecipesPage = () => {
   const recipes = Array.from({ length: 10 }, (_, i) => i + 1);
   return (
     <Wrapper>
-      <h1 className="text-4xl mb-6">Рецепты русской кухни</h1>
+      <h1 className="text-4xl mb-6 text-center">Рецепты русской кухни</h1>
       <RecipesFilter />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {recipes.map((item) => (
