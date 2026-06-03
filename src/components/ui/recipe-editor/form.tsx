@@ -1,13 +1,17 @@
 'use client';
+import Link from 'next/link';
 import { useState } from 'react';
 import { v7 as uuid } from 'uuid';
 
 import PlusIcon from '@/assets/icons/plus.svg';
+import SaveIcon from '@/assets/icons/save.svg';
+import { Button } from '@/components/ui/buttons/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { FillingForm } from '@/components/ui/recipe-editor/filling';
 import { IngredietnsForm } from '@/components/ui/recipe-editor/ingredietns';
 import { MainForm } from '@/components/ui/recipe-editor/main';
 import { Stepper } from '@/components/ui/recipe-editor/stepper';
+import { ROUTES } from '@/constants';
 
 export interface Ingredient {
   id: string;
@@ -121,6 +125,18 @@ export const RecipeEditor = (props: Props) => {
           ))}
       </div>
       <Stepper instructions={instructions} />
+      <div className="flex gap-4">
+        <Button type="submit">
+          <SaveIcon className="w-5 h-5" />
+          <span>Сохранить рецепт</span>
+        </Button>
+        <Link
+          href={ROUTES.myrecipes}
+          className="px-6 py-3 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-all font-medium"
+        >
+          Отмена
+        </Link>
+      </div>
     </form>
   );
 };
