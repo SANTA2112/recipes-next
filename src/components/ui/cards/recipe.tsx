@@ -44,12 +44,12 @@ export const Recipe = (props: Props) => {
         </div>
         {slug && (
           <div className="flex gap-3 mt-4">
-            <Link className="block w-full" href={ROUTES.editRecipe(slug)}>
-              <Button>Редактировать</Button>
-            </Link>
             <button className="px-4 py-2 rounded-full bg-gray-100 hover:bg-red-50 transition-all cursor-pointer">
               <TrashIcon className="w-4 h-4" style={{ stroke: 'var(--color-red-500)' }} />
             </button>
+            <Link className="block w-full" href={ROUTES.editRecipe(slug)}>
+              <Button>Редактировать</Button>
+            </Link>
           </div>
         )}
       </div>
