@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { v7 as uuid } from 'uuid';
 
 import PlusIcon from '@/assets/icons/plus.svg';
+import { AddBlockButton } from '@/components/ui/buttons/add-block';
 import type { Ingredient } from '@/components/ui/recipe-editor/form';
 import { IngredientItem } from '@/components/ui/recipe-editor/ingredient-item';
 
@@ -38,14 +39,9 @@ export const IngredietnsForm = (props: Props) => {
           />
         ))}
       </div>
-      <button
-        type="button"
-        className="mt-4 flex items-center gap-2 px-4 py-2 text-orange-600 hover:bg-orange-50 rounded-xl transition-all font-medium cursor-pointer ml-auto"
-        onClick={handleAddIngredient}
-      >
-        <PlusIcon className="w-4 h-4" />
-        <span>Добавить ингредиент</span>
-      </button>
+      <AddBlockButton onClick={handleAddIngredient} className="mt-4 ml-auto">
+        Добавить ингредиент
+      </AddBlockButton>
     </div>
   );
 };

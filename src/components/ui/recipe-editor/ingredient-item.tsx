@@ -1,4 +1,5 @@
 import TrashIcon from '@/assets/icons/trash.svg';
+import { DeleteButton } from '@/components/ui/buttons/delete';
 import { Input } from '@/components/ui/input';
 import type { Ingredient } from '@/components/ui/recipe-editor/form';
 
@@ -15,15 +16,7 @@ export const IngredientItem = (props: Props) => {
         <Input noMargin placeholder="Название ингредиента" />
         <Input noMargin placeholder="Кол-во" type="number" />
         <Input noMargin placeholder="г. / ст.л." />
-        {showRemoveButton && (
-          <button
-            type="button"
-            className="flex items-center justify-center px-3 py-2 text-red-500 hover:bg-red-50 rounded-xl transition-all cursor-pointer"
-            onClick={handleDelete}
-          >
-            <TrashIcon className="w-4 h-4" />
-          </button>
-        )}
+        {showRemoveButton && <DeleteButton onClick={handleDelete} />}
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import PlusIcon from '@/assets/icons/plus.svg';
 import { Button } from '@/components/ui/buttons/button';
 import { Recipe } from '@/components/ui/cards/recipe';
+import { Heading } from '@/components/ui/heading';
 import { Wrapper } from '@/components/ui/wrapper';
 import { ROUTES } from '@/constants';
 
@@ -11,7 +12,7 @@ const MyRecipesPage = () => {
   return (
     <Wrapper>
       <div className="mb-6 flex flex-col items-end">
-        <h1 className="text-4xl mb-4 self-center">Мои рецепты</h1>
+        <Heading>Мои рецепты</Heading>
         <Link href={ROUTES.newRecipe}>
           <Button notFullWidth>
             <PlusIcon className="w-5 h-5" />

@@ -1,4 +1,5 @@
 import TrashIcon from '@/assets/icons/trash.svg';
+import { DeleteButton } from '@/components/ui/buttons/delete';
 import type { Instruction } from '@/components/ui/recipe-editor/form';
 import { Textarea } from '@/components/ui/textarea';
 
@@ -16,15 +17,7 @@ export const StepperItem = (props: Props) => {
         {index}
       </div>
       <Textarea noMargin placeholder={`Опишите шаг ${index}...`} />
-      {showRemoveButton && (
-        <button
-          type="button"
-          className="flex items-center justify-center px-3 py-2 text-red-500 hover:bg-red-50 rounded-xl transition-all cursor-pointer"
-          onClick={handleDelete}
-        >
-          <TrashIcon />
-        </button>
-      )}
+      {showRemoveButton && <DeleteButton onClick={handleDelete} />}
     </div>
   );
 };

@@ -5,6 +5,7 @@ import { v7 as uuid } from 'uuid';
 
 import PlusIcon from '@/assets/icons/plus.svg';
 import SaveIcon from '@/assets/icons/save.svg';
+import { AddBlockButton } from '@/components/ui/buttons/add-block';
 import { Button } from '@/components/ui/buttons/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { FillingForm } from '@/components/ui/recipe-editor/filling';
@@ -80,14 +81,7 @@ export const RecipeEditor = (props: Props) => {
         <div className="flex items-center justify-between gap-3 mb-4">
           <Checkbox label="Добавить начинки" checked={checkedFilling} onChange={setCheckedFilling} />
           {checkedFilling && (
-            <button
-              type="button"
-              className="flex items-center gap-2 px-4 py-2 text-orange-600 hover:bg-orange-50 rounded-xl transition-all font-medium cursor-pointer"
-              onClick={() => handleAddFilling('filling')}
-            >
-              <PlusIcon className="w-4 h-4" />
-              <span>Добавить начинку</span>
-            </button>
+            <AddBlockButton onClick={() => handleAddFilling('filling')}>Добавить начинку</AddBlockButton>
           )}
         </div>
         {checkedFilling &&
@@ -103,16 +97,7 @@ export const RecipeEditor = (props: Props) => {
       <div className="bg-white rounded-xl p-6 shadow-sm">
         <div className="flex items-center justify-between gap-3 mb-4">
           <Checkbox label="Добавить соуса" checked={checkedSauses} onChange={setCheckedSauses} />
-          {checkedSauses && (
-            <button
-              type="button"
-              className="flex items-center gap-2 px-4 py-2 text-orange-600 hover:bg-orange-50 rounded-xl transition-all font-medium cursor-pointer"
-              onClick={() => handleAddFilling('sauses')}
-            >
-              <PlusIcon className="w-4 h-4" />
-              <span>Добавить соус</span>
-            </button>
-          )}
+          {checkedSauses && <AddBlockButton onClick={() => handleAddFilling('sauses')}>Добавить соус</AddBlockButton>}
         </div>
         {checkedSauses &&
           sauses.map((fill) => (

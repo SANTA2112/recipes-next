@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { Recipe } from '@/components/ui/cards/recipe';
+import { Heading } from '@/components/ui/heading';
 import { Wrapper } from '@/components/ui/wrapper';
 import { ROUTES } from '@/constants';
 import { RecipesFilter } from '@/lib/recipre-filter';
@@ -9,7 +10,7 @@ const RecipesPage = () => {
   const recipes = Array.from({ length: 10 }, (_, i) => i + 1);
   return (
     <Wrapper>
-      <h1 className="text-4xl mb-6 text-center">Рецепты русской кухни</h1>
+      <Heading>Рецепты русской кухни</Heading>
       <RecipesFilter />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {recipes.map((item) => (

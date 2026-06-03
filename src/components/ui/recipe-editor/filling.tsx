@@ -2,8 +2,8 @@
 import { useState } from 'react';
 import { v7 as uuid } from 'uuid';
 
-import PlusIcon from '@/assets/icons/plus.svg';
-import TrashIcon from '@/assets/icons/trash.svg';
+import { AddBlockButton } from '@/components/ui/buttons/add-block';
+import { DeleteButton } from '@/components/ui/buttons/delete';
 import { Input } from '@/components/ui/input';
 import type { Filling } from '@/components/ui/recipe-editor/form';
 import { IngredientItem } from '@/components/ui/recipe-editor/ingredient-item';
@@ -34,14 +34,7 @@ export const FillingForm = (props: Props) => {
       <Textarea placeholder="Описание" />
       <div className="flex items-center justify-between mb-4">
         <h3 className="font-medium">Ингредиенты</h3>
-        <button
-          type="button"
-          className="flex items-center gap-2 px-4 py-2 text-orange-600 hover:bg-orange-50 rounded-xl transition-all font-medium cursor-pointer"
-          onClick={handleAddIngredient}
-        >
-          <PlusIcon className="w-4 h-4" />
-          <span>Добавить ингредиент</span>
-        </button>
+        <AddBlockButton onClick={handleAddIngredient}>Добавить ингредиент</AddBlockButton>
       </div>
       <div className="space-y-3">
         {ingredients.map((item) => (
@@ -55,14 +48,9 @@ export const FillingForm = (props: Props) => {
       </div>
       <div className="flex items-center justify-end">
         {showDeleteButton && (
-          <button
-            type="button"
-            className="mt-4 flex items-center gap-2 px-4 py-2 text-red-600 hover:bg-red-50 rounded-xl transition-all font-medium cursor-pointer"
-            onClick={deleteFilling}
-          >
-            <span>Удалить</span>
-            <TrashIcon className="w-4 h-4" />
-          </button>
+          <DeleteButton onClick={deleteFilling} className="mt-4">
+            Удалить
+          </DeleteButton>
         )}
       </div>
     </div>

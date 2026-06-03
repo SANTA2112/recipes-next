@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { v7 as uuid } from 'uuid';
 
-import PlusIcon from '@/assets/icons/plus.svg';
+import { AddBlockButton } from '@/components/ui/buttons/add-block';
 import type { Instruction } from '@/components/ui/recipe-editor/form';
 import { StepperItem } from '@/components/ui/recipe-editor/stepper-item';
 
@@ -36,14 +36,9 @@ export const Stepper = (props: Props) => {
           />
         ))}
       </div>
-      <button
-        type="button"
-        className="mt-4 flex items-center gap-2 px-4 py-2 text-orange-600 hover:bg-orange-50 rounded-xl transition-all font-medium cursor-pointer ml-auto"
-        onClick={handleAddInstruction}
-      >
-        <PlusIcon className="w-4 h-4" />
-        <span>Добавить шаг</span>
-      </button>
+      <AddBlockButton onClick={handleAddInstruction} className="ml-auto">
+        Добавить шаг
+      </AddBlockButton>
     </div>
   );
 };
