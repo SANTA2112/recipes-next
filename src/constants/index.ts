@@ -29,8 +29,9 @@ export const ROUTES = {
   about: '/about',
   login: '/login',
   register: '/register',
+  newRecipe: '/my-recipes/new',
   recipe: (slug: string) => `/recipes/${slug}`,
-  editRecipe: (slug: string) => `/my-recipes/${slug}`,
+  editRecipe: (slug: string) => `/my-recipes/edit/${slug}`,
 } as const;
 
 export const infoCards = [
