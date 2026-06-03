@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { v7 as uuid } from 'uuid';
 
+import PlusIcon from '@/assets/icons/plus.svg';
 import type { Instruction } from '@/components/ui/recipe-editor/form';
 import { StepperItem } from '@/components/ui/recipe-editor/stepper-item';
 
@@ -13,8 +14,8 @@ export const Stepper = (props: Props) => {
     props.instructions.length > 1 ? props.instructions : [{ id: uuid(), value: '' }],
   );
 
-  const handleAddInstruction = (value: string) => {
-    setInstructions((prev) => [...prev, { id: uuid(), value }]);
+  const handleAddInstruction = () => {
+    setInstructions((prev) => [...prev, { id: uuid(), value: '' }]);
   };
 
   const handleDeleteInstruction = (id: string) => {
@@ -35,6 +36,14 @@ export const Stepper = (props: Props) => {
           />
         ))}
       </div>
+      <button
+        type="button"
+        className="mt-4 flex items-center gap-2 px-4 py-2 text-orange-600 hover:bg-orange-50 rounded-xl transition-all font-medium cursor-pointer ml-auto"
+        onClick={handleAddInstruction}
+      >
+        <PlusIcon className="w-4 h-4" />
+        <span>Добавить шаг</span>
+      </button>
     </div>
   );
 };
