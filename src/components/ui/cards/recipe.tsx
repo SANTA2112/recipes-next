@@ -3,8 +3,8 @@ import Link from 'next/link';
 import ClockIcon from '@/assets/icons/clock.svg';
 import PeopleIcon from '@/assets/icons/people.svg';
 import TrashIcon from '@/assets/icons/trash.svg';
-import { Button } from '@/components/ui/buttons/button';
-import { ProxyImage } from '@/components/ui/proxy-image';
+import { Button } from '@/components/common/buttons/button';
+import { ProxyImage } from '@/components/common/proxy-image';
 import { ROUTES } from '@/constants';
 import { formatServings, formatTime } from '@/utils/format';
 

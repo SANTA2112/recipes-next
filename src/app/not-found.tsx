@@ -2,9 +2,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import ArrowIcon from '@/assets/icons/arrow.svg';
-import { Button } from '@/components/ui/buttons/button';
-import { Heading } from '@/components/ui/heading';
-import { Wrapper } from '@/components/ui/wrapper';
+import { Button } from '@/components/common/buttons/button';
+import { Heading } from '@/components/common/heading';
+import { Wrapper } from '@/components/common/wrapper';
 import { ROUTES } from '@/constants';
 
 const notFoundPage = () => {

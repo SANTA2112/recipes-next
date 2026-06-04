@@ -3,8 +3,8 @@ import { useState } from 'react';
 
 import FilterIcon from '@/assets/icons/filter.svg';
 import SearchIcon from '@/assets/icons/search.svg';
-import { TabButton } from '@/components/ui/buttons/tab';
-import { Input } from '@/components/ui/input';
+import { TabButton } from '@/components/common/buttons/tab';
+import { Input } from '@/components/common/input';
 import { popularIngredients } from '@/constants';
 
 export const RecipesFilter = () => {

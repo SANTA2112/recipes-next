@@ -1,6 +1,6 @@
 import TrashIcon from '@/assets/icons/trash.svg';
-import { DeleteButton } from '@/components/ui/buttons/delete';
-import { Input } from '@/components/ui/input';
+import { DeleteButton } from '@/components/common/buttons/delete';
+import { Input } from '@/components/common/input';
 import type { Ingredient } from '@/components/ui/recipe-editor/form';
 
 interface Props extends Partial<Ingredient> {

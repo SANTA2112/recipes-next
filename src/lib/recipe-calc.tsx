@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react';
 
 import MinusIcon from '@/assets/icons/minus.svg';
 import PlusIcon from '@/assets/icons/plus.svg';
-import { CalcButton } from '@/components/ui/buttons/calc';
+import { CalcButton } from '@/components/common/buttons/calc';
 import { formatServings } from '@/utils/format';
 
 interface Props {

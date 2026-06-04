@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import { RecipeEditor } from '@/components/ui/recipe-editor/form';
-import { Wrapper } from '@/components/ui/wrapper';
+import { Wrapper } from '@/components/common/wrapper';
 import { ROUTES } from '@/constants';
 
 export default async function NewRecipePage() {

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { v7 as uuid } from 'uuid';
 
-import { AddBlockButton } from '@/components/ui/buttons/add-block';
+import { AddBlockButton } from '@/components/common/buttons/add-block';
 import type { Instruction } from '@/components/ui/recipe-editor/form';
 import { StepperItem } from '@/components/ui/recipe-editor/stepper-item';
 

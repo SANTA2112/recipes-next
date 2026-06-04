@@ -1,7 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
 
-import { Header } from '@/components/ui/header';
+import { Header } from '@/components/common/header';
 
 export const metadata: Metadata = {
   title: 'Русская кухня',

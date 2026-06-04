@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { v7 as uuid } from 'uuid';
 
 import PlusIcon from '@/assets/icons/plus.svg';
-import { AddBlockButton } from '@/components/ui/buttons/add-block';
+import { AddBlockButton } from '@/components/common/buttons/add-block';
 import type { Ingredient } from '@/components/ui/recipe-editor/form';
 import { IngredientItem } from '@/components/ui/recipe-editor/ingredient-item';
 

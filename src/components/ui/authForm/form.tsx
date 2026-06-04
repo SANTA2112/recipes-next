@@ -1,7 +1,7 @@
 import type { ComponentPropsWithoutRef } from 'react';
 
-import { Button } from '@/components/ui/buttons/button';
-import { Input } from '@/components/ui/input';
+import { Button } from '@/components/common/buttons/button';
+import { Input } from '@/components/common/input';
 import type { FormType } from '@/constants';
 
 interface Props extends ComponentPropsWithoutRef<'form'> {

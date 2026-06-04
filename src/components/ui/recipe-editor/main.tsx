@@ -1,5 +1,5 @@
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@/components/common/input';
+import { Textarea } from '@/components/common/textarea';
 
 interface Props {
   title?: string;

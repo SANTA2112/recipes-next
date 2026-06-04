@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { Button } from '@/components/ui/buttons/button';
+import { Button } from '@/components/common/buttons/button';
 import { AchievementComponent } from '@/components/ui/cards/achievement';
 import { Info } from '@/components/ui/cards/info';
 import { infoCards, achievements, ROUTES } from '@/constants';

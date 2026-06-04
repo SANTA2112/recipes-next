@@ -1,8 +1,8 @@
 import Link from 'next/link';
 
 import { Recipe } from '@/components/ui/cards/recipe';
-import { Heading } from '@/components/ui/heading';
-import { Wrapper } from '@/components/ui/wrapper';
+import { Heading } from '@/components/common/heading';
+import { Wrapper } from '@/components/common/wrapper';
 import { ROUTES } from '@/constants';
 import { RecipesFilter } from '@/lib/recipre-filter';
 

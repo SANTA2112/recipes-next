@@ -1,8 +1,8 @@
 import Image from 'next/image';
 
 import ClientIcon from '@/assets/icons/client.svg';
-import { Button } from '@/components/ui/buttons/button';
-import StyledLink from '@/components/ui/styledLink';
+import { Button } from '@/components/common/buttons/button';
+import StyledLink from '@/components/common/styledLink';
 import { menu, ROUTES } from '@/constants';
 
 export const Header = () => {

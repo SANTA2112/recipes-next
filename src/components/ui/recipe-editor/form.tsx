@@ -5,9 +5,9 @@ import { v7 as uuid } from 'uuid';
 
 import PlusIcon from '@/assets/icons/plus.svg';
 import SaveIcon from '@/assets/icons/save.svg';
-import { AddBlockButton } from '@/components/ui/buttons/add-block';
-import { Button } from '@/components/ui/buttons/button';
-import { Checkbox } from '@/components/ui/checkbox';
+import { AddBlockButton } from '@/components/common/buttons/add-block';
+import { Button } from '@/components/common/buttons/button';
+import { Checkbox } from '@/components/common/checkbox';
 import { FillingForm } from '@/components/ui/recipe-editor/filling';
 import { IngredietnsForm } from '@/components/ui/recipe-editor/ingredietns';
 import { MainForm } from '@/components/ui/recipe-editor/main';

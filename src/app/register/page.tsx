@@ -1,6 +1,6 @@
 import { Form } from '@/components/ui/authForm/form';
 import { FormWrapper } from '@/components/ui/authForm/wrapper';
-import { Wrapper } from '@/components/ui/wrapper';
+import { Wrapper } from '@/components/common/wrapper';
 
 const RegisterPage = () => {
   return (
