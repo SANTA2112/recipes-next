@@ -42,3 +42,5 @@ next-env.d.ts
 .vscode/settings.json
 
 /src/generated/prisma
+
+_test
