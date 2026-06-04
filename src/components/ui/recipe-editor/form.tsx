@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { v7 as uuid } from 'uuid';
 
-import PlusIcon from '@/assets/icons/plus.svg';
 import SaveIcon from '@/assets/icons/save.svg';
 import { AddBlockButton } from '@/components/common/buttons/add-block';
 import { Button } from '@/components/common/buttons/button';

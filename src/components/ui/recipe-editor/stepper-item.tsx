@@ -1,7 +1,6 @@
-import TrashIcon from '@/assets/icons/trash.svg';
 import { DeleteButton } from '@/components/common/buttons/delete';
-import type { Instruction } from '@/components/ui/recipe-editor/form';
 import { Textarea } from '@/components/common/textarea';
+import type { Instruction } from '@/components/ui/recipe-editor/form';
 
 interface Props extends Omit<Instruction, 'id'> {
   index: number;

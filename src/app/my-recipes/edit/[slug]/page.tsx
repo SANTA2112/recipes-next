@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-import { RecipeEditor } from '@/components/ui/recipe-editor/form';
 import { Wrapper } from '@/components/common/wrapper';
+import { RecipeEditor } from '@/components/ui/recipe-editor/form';
 import { ROUTES } from '@/constants';
 
 async function getRecipe(slug: string) {

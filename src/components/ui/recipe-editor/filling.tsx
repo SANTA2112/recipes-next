@@ -5,9 +5,9 @@ import { v7 as uuid } from 'uuid';
 import { AddBlockButton } from '@/components/common/buttons/add-block';
 import { DeleteButton } from '@/components/common/buttons/delete';
 import { Input } from '@/components/common/input';
+import { Textarea } from '@/components/common/textarea';
 import type { Filling } from '@/components/ui/recipe-editor/form';
 import { IngredientItem } from '@/components/ui/recipe-editor/ingredient-item';
-import { Textarea } from '@/components/common/textarea';
 
 interface Props extends Filling {
   deleteFilling?: () => void;

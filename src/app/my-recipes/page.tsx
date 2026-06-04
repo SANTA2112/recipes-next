@@ -2,9 +2,9 @@ import Link from 'next/link';
 
 import PlusIcon from '@/assets/icons/plus.svg';
 import { Button } from '@/components/common/buttons/button';
-import { Recipe } from '@/components/ui/cards/recipe';
 import { Heading } from '@/components/common/heading';
 import { Wrapper } from '@/components/common/wrapper';
+import { Recipe } from '@/components/ui/cards/recipe';
 import { ROUTES } from '@/constants';
 
 const MyRecipesPage = () => {
