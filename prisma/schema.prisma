@@ -13,80 +13,28 @@ datasource db {
 }
 
 model User {
-  id       String   @id @default(uuid())
+  id       String   @id @default(uuid()) @db.Uuid
   email    String   @unique
   password String
   recipes  Recipe[]
-
-  @@map("users")
 }
 
 model Recipe {
-  slug         String   @id
-  title        String
-  shortDesc    String
-  fullDesc     String
-  image        String?
-  servings     Int
-  cookTime     Int
-  instructions String[]
+  id        String  @id @default(uuid()) @db.Uuid
+  title     String
+  shortDesc String
+  fullDesc  String
+  image     String?
+  servings  Int
+  cookTime  Int
 
-  userId String
+  ingredients  Json
+  sauses       Json
+  filling      Json
+  instructions Json
+
+  userId String @db.Uuid
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  sauses      Filling[]            @relation("RecipeSauses")
-  filling     Filling[]            @relation("RecipeFilling")
-  ingredients IngredientRelation[]
-
-  @@map("recipes")
-}
-
-model Ingredient {
-  id    Int    @id @default(autoincrement())
-  title String
-  count String
-  unit  String
-
-  recipeIngredients  IngredientRelation[]
-  fillingIngredients IngredientRelationFilling[]
-
-  @@map("ingredients")
-}
-
-model Filling {
-  id          Int    @id @default(autoincrement())
-  title       String
-  description String
-
-  recipeSauses  Recipe[]                    @relation("RecipeSauses")
-  recipeFilling Recipe[]                    @relation("RecipeFilling")
-  ingredients   IngredientRelationFilling[]
-
-  @@map("fillings")
-}
-
-model IngredientRelation {
-  id           Int    @id @default(autoincrement())
-  recipeId     String
-  ingredientId Int
-  index        Int    @default(0)
-
-  recipe     Recipe     @relation(fields: [recipeId], references: [slug], onDelete: Cascade)
-  ingredient Ingredient @relation(fields: [ingredientId], references: [id], onDelete: Cascade)
-
-  @@unique([recipeId, ingredientId])
-  @@map("recipe_ingredients")
-}
-
-model IngredientRelationFilling {
-  id           Int @id @default(autoincrement())
-  fillingId    Int
-  ingredientId Int
-  index        Int @default(0)
-
-  filling    Filling    @relation(fields: [fillingId], references: [id], onDelete: Cascade)
-  ingredient Ingredient @relation(fields: [ingredientId], references: [id], onDelete: Cascade)
-
-  @@unique([fillingId, ingredientId])
-  @@map("filling_ingredients")
+  @@index([userId])
 }
