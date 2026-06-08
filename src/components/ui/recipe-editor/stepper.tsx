@@ -1,38 +1,33 @@
-import { useState } from 'react';
-import { v7 as uuid } from 'uuid';
+import { useFieldArray, useFormContext } from 'react-hook-form';
 
 import { AddBlockButton } from '@/components/common/buttons/add-block';
-import type { Instruction } from '@/components/ui/recipe-editor/form';
 import { StepperItem } from '@/components/ui/recipe-editor/stepper-item';
+import type { RecipeFormState } from '@/constants/form-state';
 
-interface Props {
-  instructions: Instruction[];
-}
-
-export const Stepper = (props: Props) => {
-  const [instructions, setInstructions] = useState(
-    props.instructions.length > 1 ? props.instructions : [{ id: uuid(), value: '' }],
-  );
+export const Stepper = () => {
+  const fieldName = 'instructions';
+  const { control } = useFormContext<Pick<RecipeFormState, 'instructions'>>();
+  const { append, fields, remove } = useFieldArray({ control, name: fieldName });
 
   const handleAddInstruction = () => {
-    setInstructions((prev) => [...prev, { id: uuid(), value: '' }]);
+    append({ value: '' });
   };
 
-  const handleDeleteInstruction = (id: string) => {
-    setInstructions((prev) => prev.filter((item) => item.id !== id));
+  const handleRemoveInstruction = (id: number) => {
+    remove(id);
   };
 
   return (
     <div className="bg-white rounded-2xl p-6 shadow-sm border-2 border-gray-100">
       <h2 className="text-2xl mb-4 font-semibold text-gray-800">Шаги приготовления</h2>
       <div className="space-y-4">
-        {instructions.map((item, i) => (
+        {fields.map((item, index) => (
           <StepperItem
             key={item.id}
-            index={i + 1}
-            value={item.value}
-            handleDelete={() => handleDeleteInstruction(item.id)}
-            showRemoveButton={instructions.length > 1}
+            index={index}
+            handleDelete={() => handleRemoveInstruction(index)}
+            showRemoveButton={fields.length > 1}
+            fieldName={fieldName}
           />
         ))}
       </div>

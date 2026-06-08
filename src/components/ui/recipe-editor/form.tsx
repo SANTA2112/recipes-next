@@ -1,7 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { useState } from 'react';
-import { v7 as uuid } from 'uuid';
+import { Controller, FormProvider, useFieldArray, useForm, type SubmitHandler } from 'react-hook-form';
 
 import SaveIcon from '@/assets/icons/save.svg';
 import { AddBlockButton } from '@/components/common/buttons/add-block';
@@ -12,115 +11,133 @@ import { IngredietnsForm } from '@/components/ui/recipe-editor/ingredietns';
 import { MainForm } from '@/components/ui/recipe-editor/main';
 import { Stepper } from '@/components/ui/recipe-editor/stepper';
 import { ROUTES } from '@/constants';
+import { type Recipe, type RecipeFormState } from '@/constants/form-state';
 
-export interface Ingredient {
-  id: string;
-  title: string;
-  count: string;
-  unit: string;
-}
+export type FillingsKeysNames = Extract<keyof RecipeFormState, 'filling' | 'sauses'>;
 
-export interface Filling {
-  id: string;
-  title: string;
-  description: string;
-  ingredients: Ingredient[];
-}
+export const RecipeEditor = (props: Partial<Recipe>) => {
+  'use no memo'; // Errors in nested components (with useFormContext) are not received.
+  const methods = useForm<RecipeFormState>({
+    values: {
+      cookTime: props.cookTime?.toString() ?? '',
+      filling: props.filling ?? [{ description: '', title: '', ingredients: [{ count: '', title: '', unit: '' }] }],
+      fullDesc: props.fullDesc ?? '',
+      image: props.image ?? '',
+      ingredients: props.ingredients ?? [{ count: '', title: '', unit: '' }],
+      instructions: props.instructions ?? [{ value: '' }],
+      sauses: props.sauses ?? [{ description: '', title: '', ingredients: [{ count: '', title: '', unit: '' }] }],
+      servings: props.servings?.toString() ?? '',
+      shortDesc: props.shortDesc ?? '',
+      title: props.title ?? '',
+      hasFilling: (props?.filling ?? [])?.length > 0,
+      hasSauses: (props?.sauses ?? [])?.length > 0,
+    },
+  });
 
-export interface Instruction {
-  id: string;
-  value: string;
-}
+  const { watch, handleSubmit, control } = methods;
 
-interface Recipe {
-  title: string;
-  shortDesc: string;
-  fullDesc: string;
-  image: string | null;
-  servings: number;
-  cookTime: number;
-  ingredients: Ingredient[];
-  sauses: Filling[];
-  filling: Filling[];
-  instructions: Instruction[];
-}
+  const {
+    append: appendFilling,
+    fields: fillingFields,
+    remove: removeFilling,
+  } = useFieldArray({ control, name: 'filling' });
+  const {
+    append: appendSauses,
+    fields: sausesFields,
+    remove: removeSauses,
+  } = useFieldArray({ control, name: 'sauses' });
 
-interface Props extends Partial<Recipe> {}
+  const handleAddFilling = (type: FillingsKeysNames) => {
+    const newItem = [{ description: '', title: '', ingredients: [{ count: '', title: '', unit: '' }] }];
 
-export const RecipeEditor = (props: Props) => {
-  const { cookTime, fullDesc, image, servings, shortDesc, title, ingredients = [], instructions = [] } = props;
-  const [checkedFilling, setCheckedFilling] = useState((props.filling ?? [])?.length > 1);
-  const [checkedSauses, setCheckedSauses] = useState((props.sauses ?? []).length > 1);
-  const [filling, setFilling] = useState([{ id: uuid(), title: '', description: '', ingredients: [] }]);
-  const [sauses, setSauses] = useState([{ id: uuid(), title: '', description: '', ingredients: [] }]);
-
-  const handleAddFilling = (type: 'filling' | 'sauses') => {
-    if (type === 'filling')
-      setFilling((prev) => [...prev, { id: uuid(), title: '', description: '', ingredients: [] }]);
-    if (type === 'sauses') setSauses((prev) => [...prev, { id: uuid(), title: '', description: '', ingredients: [] }]);
+    if (type === 'filling') appendFilling(newItem);
+    if (type === 'sauses') appendSauses(newItem);
   };
 
-  const handleDeleteFilling = (type: 'filling' | 'sauses', id: string) => {
-    if (type === 'filling') setFilling((prev) => prev.filter((item) => item.id !== id));
-    if (type === 'sauses') setSauses((prev) => prev.filter((item) => item.id !== id));
+  const handleRemoveFilling = (type: FillingsKeysNames, index: number) => {
+    if (type === 'filling') removeFilling(index);
+    if (type === 'sauses') removeSauses(index);
   };
+
+  const onSubmit: SubmitHandler<RecipeFormState> = (data) => {
+    console.log(data);
+  };
+  const [hasFilling, hasSauses] = watch(['hasFilling', 'hasSauses']);
 
   return (
-    <form className="space-y-6">
-      <MainForm
-        cookTime={cookTime}
-        fullDesc={fullDesc}
-        image={image ?? ''}
-        servings={servings}
-        shortDesc={shortDesc}
-        title={title}
-      />
-      <IngredietnsForm heading="Ингредиенты" ingredients={ingredients} />
-      <div className="bg-white rounded-xl p-6 shadow-sm">
-        <div className="flex items-center justify-between gap-3 mb-4">
-          <Checkbox label="Добавить начинки" checked={checkedFilling} onChange={setCheckedFilling} />
-          {checkedFilling && (
-            <AddBlockButton onClick={() => handleAddFilling('filling')}>Добавить начинку</AddBlockButton>
-          )}
-        </div>
-        {checkedFilling &&
-          filling.map((fill) => (
-            <FillingForm
-              key={fill.id}
-              {...fill}
-              deleteFilling={() => handleDeleteFilling('filling', fill.id)}
-              showDeleteButton={filling.length > 1}
+    <FormProvider {...methods}>
+      <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+        <MainForm />
+        <IngredietnsForm heading="Ингредиенты" />
+        <div className="bg-white rounded-xl p-6 shadow-sm">
+          <div className="flex items-center justify-between gap-3 mb-4">
+            <Controller
+              control={control}
+              name="hasFilling"
+              render={({ field }) => (
+                <Checkbox
+                  label="Добавить начинки"
+                  checked={field.value}
+                  onChange={(value) => {
+                    field.onChange(value);
+                  }}
+                />
+              )}
             />
-          ))}
-      </div>
-      <div className="bg-white rounded-xl p-6 shadow-sm">
-        <div className="flex items-center justify-between gap-3 mb-4">
-          <Checkbox label="Добавить соуса" checked={checkedSauses} onChange={setCheckedSauses} />
-          {checkedSauses && <AddBlockButton onClick={() => handleAddFilling('sauses')}>Добавить соус</AddBlockButton>}
+            {hasFilling && (
+              <AddBlockButton onClick={() => handleAddFilling('filling')}>Добавить начинку</AddBlockButton>
+            )}
+          </div>
+          {hasFilling &&
+            fillingFields.map((fill, index) => (
+              <FillingForm
+                key={fill.id}
+                deleteFilling={() => handleRemoveFilling('filling', index)}
+                showDeleteButton={fillingFields.length > 1}
+                fieldName={`filling.${index}`}
+                index={index}
+                originalKey="filling"
+              />
+            ))}
         </div>
-        {checkedSauses &&
-          sauses.map((fill) => (
-            <FillingForm
-              key={fill.id}
-              {...fill}
-              deleteFilling={() => handleDeleteFilling('sauses', fill.id)}
-              showDeleteButton={sauses.length > 1}
+        <div className="bg-white rounded-xl p-6 shadow-sm">
+          <div className="flex items-center justify-between gap-3 mb-4">
+            <Controller
+              control={control}
+              name="hasSauses"
+              render={({ field }) => (
+                <Checkbox label="Добавить соуса" checked={field.value} onChange={field.onChange} />
+              )}
             />
-          ))}
-      </div>
-      <Stepper instructions={instructions} />
-      <div className="flex gap-4">
-        <Button type="submit">
-          <SaveIcon className="w-5 h-5" />
-          <span>Сохранить рецепт</span>
-        </Button>
-        <Link
-          href={ROUTES.myrecipes}
-          className="px-6 py-3 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-all font-medium"
-        >
-          Отмена
-        </Link>
-      </div>
-    </form>
+            {hasSauses && <AddBlockButton onClick={() => handleAddFilling('sauses')}>Добавить соус</AddBlockButton>}
+          </div>
+          {hasSauses &&
+            sausesFields.map((fill, index) => (
+              <FillingForm
+                key={fill.id}
+                deleteFilling={() => handleRemoveFilling('sauses', index)}
+                showDeleteButton={sausesFields.length > 1}
+                fieldName={`sauses.${index}`}
+                index={index}
+                originalKey="sauses"
+                {...fill}
+              />
+            ))}
+        </div>
+        <Stepper />
+        <div className="flex gap-4">
+          <Button type="submit">
+            <SaveIcon className="w-5 h-5" />
+            <span>Сохранить рецепт</span>
+          </Button>
+          <Link
+            href={ROUTES.myrecipes}
+            className="px-6 py-3 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-all font-medium"
+          >
+            Отмена
+          </Link>
+        </div>
+      </form>
+    </FormProvider>
   );
 };
