@@ -17,8 +17,7 @@
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-hook-form": "^7.77.0",
-    "slugify": "^1.6.9",
-    "uuid": "^14.0.0"
+    "slugify": "^1.6.9"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
