@@ -62,6 +62,7 @@ export const MainForm = () => {
             required: { value: true, message: 'Это поле обязательное' },
             min: { value: 1, message: 'Должна быть хотя бы одна порция' },
             max: { value: 10, message: 'Должно быть не более 10 порций' },
+            valueAsNumber: true,
           })}
         />
         <Input
@@ -74,6 +75,7 @@ export const MainForm = () => {
             required: { value: true, message: 'Это поле обязательное' },
             min: { value: 1, message: 'Время не может быть отрицательным' },
             max: { value: 720, message: 'Готовка занимает слишком много времени' },
+            valueAsNumber: true,
           })}
         />
       </div>

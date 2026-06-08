@@ -24,7 +24,7 @@ export const IngredientItem = (props: Props) => {
     <div className="space-y-3">
       <div className="grid grid-cols-[60%_1fr_1fr_45px] gap-4">
         <Input noMargin placeholder="Название ингредиента" required {...register(titleKey)} />
-        <Input noMargin placeholder="Кол-во" type="number" required {...register(countKey)} />
+        <Input noMargin placeholder="Кол-во" type="number" required {...register(countKey, { valueAsNumber: true })} />
         <Input noMargin placeholder="г. / ст.л." required {...register(unitKey)} />
         {showRemoveButton && <DeleteButton onClick={handleDelete} />}
       </div>
