@@ -2,6 +2,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 
 import { Header } from '@/components/common/header';
+import Provider from '@/components/session-provider';
 
 export const metadata: Metadata = {
   title: 'Русская кухня',
@@ -16,10 +17,12 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body>
-        <div className="min-h-screen bg-gray-50">
-          <Header />
-          <main>{children}</main>
-        </div>
+        <Provider>
+          <div className="min-h-screen bg-gray-50">
+            <Header />
+            <main>{children}</main>
+          </div>
+        </Provider>
       </body>
     </html>
   );
