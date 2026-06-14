@@ -1,11 +1,19 @@
+'use client';
 import Image from 'next/image';
+import { useSession } from 'next-auth/react';
 
+import { signOutFunc } from '@/actions/sign-out';
 import ClientIcon from '@/assets/icons/client.svg';
 import { Button } from '@/components/common/buttons/button';
 import StyledLink from '@/components/common/styledLink';
 import { menu, ROUTES } from '@/constants';
 
 export const Header = () => {
+  const { data: session, status } = useSession();
+  const handleSignOut = async () => {
+    await signOutFunc();
+  };
+  const isAuth = status === 'authenticated';
   return (
     <header className="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -29,17 +37,32 @@ export const Header = () => {
           ))}
         </nav>
         <div className="flex items-center gap-4">
-          <StyledLink className="text-gray-700 hover:text-orange-600 transition-colors font-medium" href={ROUTES.login}>
-            Вход
-          </StyledLink>
-          <StyledLink href={ROUTES.register}>
-            <Button>
-              <div className="flex items-center justify-center gap-2">
-                <ClientIcon className="w-4 h-4 text-white" />
-                <span>Регистрация</span>
-              </div>
-            </Button>
-          </StyledLink>
+          {isAuth && <p className="text-orange-600 font-medium">{session.user?.email}</p>}
+          {isAuth ? (
+            <button
+              className="text-gray-700 hover:text-orange-600 transition-colors font-medium cursor-pointer"
+              onClick={handleSignOut}
+            >
+              Выйти
+            </button>
+          ) : (
+            <>
+              <StyledLink
+                className="text-gray-700 hover:text-orange-600 transition-colors font-medium"
+                href={ROUTES.login}
+              >
+                Вход
+              </StyledLink>
+              <StyledLink href={ROUTES.register}>
+                <Button>
+                  <div className="flex items-center justify-center gap-2">
+                    <ClientIcon className="w-4 h-4 text-white" />
+                    <span>Регистрация</span>
+                  </div>
+                </Button>
+              </StyledLink>
+            </>
+          )}
         </div>
       </div>
     </header>
