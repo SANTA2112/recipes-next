@@ -1,7 +1,9 @@
 'use client';
-import type { ComponentPropsWithoutRef } from 'react';
+import { useState, type ComponentPropsWithoutRef } from 'react';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 
+import { registerUser } from '@/actions/register';
+import { singInWithCredentials } from '@/actions/sign-in';
 import { Button } from '@/components/common/buttons/button';
 import { Input } from '@/components/common/input';
 import type { FormType } from '@/constants';
@@ -14,6 +16,7 @@ interface Props extends ComponentPropsWithoutRef<'form'> {
 export const Form = (props: Props) => {
   const { type, ...rest } = props;
   const buttonText = type === 'login' ? 'Войти' : 'Зарегистрироваться';
+  const [authError, setAuthError] = useState<string | null>(null);
 
   const {
     register,
@@ -22,11 +25,22 @@ export const Form = (props: Props) => {
     formState: { errors },
   } = useForm<AuthFormState>();
 
-  const onSubmit: SubmitHandler<AuthFormState> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<AuthFormState> = async (data) => {
+    setAuthError(null);
+    const { confirm_password, email, password } = data;
     if (type === 'register') {
-      if (data.confirm_password !== data.password) {
+      if (confirm_password !== data.password) {
         setError('confirm_password', { type: 'value', message: 'Пароли не совпадают' });
+      }
+      const result = await registerUser({ email, password });
+      if (result.error) {
+        setAuthError(result.error);
+      }
+    }
+    if (type === 'login') {
+      const result = await singInWithCredentials(email, password);
+      if (result?.status === 401) {
+        setAuthError('Не верный логин или пароль');
       }
     }
   };
@@ -71,6 +85,7 @@ export const Form = (props: Props) => {
         />
       )}
       <Button>{buttonText}</Button>
+      {authError && <div className="mt-1 text-red-500 font-bold text-center">{authError}</div>}
     </form>
   );
 };
