@@ -27,12 +27,19 @@ export const RecipeEditor = (props: Partial<Recipe>) => {
   const methods = useForm<RecipeFormState>({
     values: {
       cookTime: props.cookTime?.toString() ?? '',
-      filling: props.filling ?? [{ description: '', title: '', ingredients: [{ count: '', title: '', unit: '' }] }],
+      filling:
+        props.filling && props.filling.length > 0
+          ? props.filling
+          : [{ description: '', title: '', ingredients: [{ count: '', title: '', unit: '' }] }],
       fullDesc: props.fullDesc ?? '',
       image: props.image ?? '',
-      ingredients: props.ingredients ?? [{ count: '', title: '', unit: '' }],
-      instructions: props.instructions ?? [{ value: '' }],
-      sauses: props.sauses ?? [{ description: '', title: '', ingredients: [{ count: '', title: '', unit: '' }] }],
+      ingredients:
+        props.ingredients && props.ingredients.length > 0 ? props.ingredients : [{ count: '', title: '', unit: '' }],
+      instructions: props.instructions && props.instructions.length > 0 ? props.instructions : [{ value: '' }],
+      sauses:
+        props.sauses && props.sauses.length > 0
+          ? props.sauses
+          : [{ description: '', title: '', ingredients: [{ count: '', title: '', unit: '' }] }],
       servings: props.servings?.toString() ?? '',
       shortDesc: props.shortDesc ?? '',
       title: props.title ?? '',
