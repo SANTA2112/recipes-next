@@ -1,11 +1,14 @@
 import Link from 'next/link';
+import { getServerSession } from 'next-auth';
 
 import { Button } from '@/components/common/buttons/button';
 import { AchievementComponent } from '@/components/ui/cards/achievement';
 import { Info } from '@/components/ui/cards/info';
 import { infoCards, achievements, ROUTES } from '@/constants';
 
-const AboutPage = () => {
+const AboutPage = async () => {
+  const session = await getServerSession();
+
   const [info1, info2] = infoCards;
   return (
     <div>
@@ -23,16 +26,18 @@ const AboutPage = () => {
           ))}
         </div>
         <Info title={info2.title}>{info2.descriptions}</Info>
-        <div className="mt-8 bg-linear-to-br from-orange-50 to-red-50 rounded-3xl p-8 text-center border-2 border-orange-100">
-          <h2 className="text-2xl mb-4 font-bold">Присоединяйтесь к нам!</h2>
-          <p className="text-gray-700 mb-6 leading-relaxed">
-            Зарегистрируйтесь, чтобы создавать свои рецепты, сохранять избранное и общаться с другими любителями русской
-            кухни.
-          </p>
-          <Link href={ROUTES.register} className="flex justify-center">
-            <Button notFullWidth>Зарегистрироваться</Button>
-          </Link>
-        </div>
+        {!session && (
+          <div className="mt-8 bg-linear-to-br from-orange-50 to-red-50 rounded-3xl p-8 text-center border-2 border-orange-100">
+            <h2 className="text-2xl mb-4 font-bold">Присоединяйтесь к нам!</h2>
+            <p className="text-gray-700 mb-6 leading-relaxed">
+              Зарегистрируйтесь, чтобы создавать свои рецепты, сохранять избранное и общаться с другими любителями
+              русской кухни.
+            </p>
+            <Link href={ROUTES.register} className="flex justify-center">
+              <Button notFullWidth>Зарегистрироваться</Button>
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

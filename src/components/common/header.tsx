@@ -26,15 +26,17 @@ export const Header = () => {
           </span>
         </StyledLink>
         <nav className="hidden md:flex items-center gap-4">
-          {menu.map(({ link, title }) => (
-            <StyledLink
-              key={link}
-              href={link}
-              className="text-gray-700 hover:text-orange-600 transition-colors font-medium"
-            >
-              {title}
-            </StyledLink>
-          ))}
+          {menu
+            .filter((item) => (item.link === ROUTES.myrecipes ? isAuth : true))
+            .map(({ link, title }) => (
+              <StyledLink
+                key={link}
+                href={link}
+                className="text-gray-700 hover:text-orange-600 transition-colors font-medium"
+              >
+                {title}
+              </StyledLink>
+            ))}
         </nav>
         <div className="flex items-center gap-4">
           {isAuth && <p className="text-orange-600 font-medium">{session.user?.email}</p>}
