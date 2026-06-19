@@ -30,8 +30,8 @@ export const ROUTES = {
   login: '/login',
   register: '/register',
   newRecipe: '/my-recipes/new',
-  recipe: (slug: string) => `/recipes/${slug}`,
-  editRecipe: (slug: string) => `/my-recipes/edit/${slug}`,
+  recipe: (id: string) => `/recipes/${id}`,
+  editRecipe: (id: string) => `/my-recipes/edit/${id}`,
 } as const;
 
 export const infoCards = [

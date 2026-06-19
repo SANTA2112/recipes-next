@@ -41,6 +41,7 @@ const fillingSchema = object({
 });
 
 export const recipeSchema = object({
+  id: string().optional(),
   title: string({
     error: 'Recipe title is required',
   }).min(1, 'Recipe title is required'),
@@ -50,9 +51,7 @@ export const recipeSchema = object({
   fullDesc: string({
     error: 'Full description is required',
   }),
-  image: string({
-    error: 'Image URL is required',
-  }),
+  image: string().optional(),
   servings: number({
     error: 'Servings is required',
   }).min(1, 'Servings is required'),

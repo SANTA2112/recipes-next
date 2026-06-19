@@ -15,10 +15,11 @@ export interface Filling {
 }
 
 export interface Recipe {
+  id?: string;
   title: string;
   shortDesc: string;
   fullDesc: string;
-  image: string;
+  image: string | null;
   servings: number | string;
   cookTime: number | string;
   ingredients: Ingredient[];
