@@ -1,5 +1,7 @@
 import './globals.css';
+import 'react-toastify/dist/ReactToastify.css';
 import type { Metadata } from 'next';
+import { ToastContainer } from 'react-toastify';
 
 import { Header } from '@/components/common/header';
 import Provider from '@/components/session-provider';
@@ -19,6 +21,7 @@ export default function RootLayout({
       <body>
         <Provider>
           <div className="min-h-screen bg-gray-50">
+            <ToastContainer />
             <Header />
             <main>{children}</main>
           </div>
