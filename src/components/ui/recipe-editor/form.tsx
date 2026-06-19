@@ -1,22 +1,29 @@
 'use client';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { Controller, FormProvider, useFieldArray, useForm, type SubmitHandler } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
+import { createRecipe, updateRecipe } from '@/actions/recipe';
 import SaveIcon from '@/assets/icons/save.svg';
 import { AddBlockButton } from '@/components/common/buttons/add-block';
 import { Button } from '@/components/common/buttons/button';
 import { Checkbox } from '@/components/common/checkbox';
+import { ErrorMessage } from '@/components/common/error-message';
 import { FillingForm } from '@/components/ui/recipe-editor/filling';
 import { IngredietnsForm } from '@/components/ui/recipe-editor/ingredietns';
 import { MainForm } from '@/components/ui/recipe-editor/main';
 import { Stepper } from '@/components/ui/recipe-editor/stepper';
 import { ROUTES } from '@/constants';
 import { type Recipe, type RecipeFormState } from '@/constants/form-state';
+import { notifyLoading } from '@/utils/toasts';
 
 export type FillingsKeysNames = Extract<keyof RecipeFormState, 'filling' | 'sauses'>;
 
 export const RecipeEditor = (props: Partial<Recipe>) => {
   'use no memo'; // Errors in nested components (with useFormContext) are not received.
+  const router = useRouter();
+  const [recipeError, setRecipeError] = useState<string | null>(null);
   const methods = useForm<RecipeFormState>({
     values: {
       cookTime: props.cookTime?.toString() ?? '',
@@ -34,7 +41,12 @@ export const RecipeEditor = (props: Partial<Recipe>) => {
     },
   });
 
-  const { watch, handleSubmit, control } = methods;
+  const {
+    watch,
+    handleSubmit,
+    control,
+    formState: { errors, isSubmitting },
+  } = methods;
 
   const {
     append: appendFilling,
@@ -59,10 +71,72 @@ export const RecipeEditor = (props: Partial<Recipe>) => {
     if (type === 'sauses') removeSauses(index);
   };
 
-  const onSubmit: SubmitHandler<RecipeFormState> = (data) => {
-    console.log(data);
-  };
   const [hasFilling, hasSauses] = watch(['hasFilling', 'hasSauses']);
+  const hasFieldsErrors = Object.keys(errors).length > 0;
+
+  const onSubmit: SubmitHandler<RecipeFormState> = async (data) => {
+    setRecipeError(null);
+
+    const toastId = notifyLoading();
+
+    try {
+      const {
+        cookTime,
+        filling,
+        fullDesc,
+        hasFilling,
+        hasSauses,
+        image,
+        ingredients,
+        instructions,
+        sauses,
+        servings,
+        shortDesc,
+        title,
+      } = data;
+      const converted = {
+        cookTime: Number(cookTime),
+        filling: hasFilling ? filling : [],
+        fullDesc,
+        ingredients: ingredients,
+        instructions: instructions,
+        sauses: hasSauses ? sauses : [],
+        servings: Number(servings),
+        shortDesc,
+        title,
+        image,
+      };
+      if (props.id) {
+        await updateRecipe({ ...converted, id: props.id })
+          .then(() =>
+            toast.update(toastId, {
+              render: 'Рецепт успешно сохранен!',
+              autoClose: 3000,
+              type: 'success',
+            }),
+          )
+          .then(() => router.push(ROUTES.myrecipes));
+      } else {
+        await createRecipe(converted)
+          .then(() =>
+            toast.update(toastId, {
+              render: 'Рецепт успешно создан!',
+              autoClose: 3000,
+              type: 'success',
+            }),
+          )
+          .then(() => router.push(ROUTES.myrecipes));
+      }
+    } catch (e) {
+      const error = (e as Error).message;
+      setRecipeError(error);
+      toast.update(toastId, {
+        render: error,
+        autoClose: 3000,
+        type: 'error',
+      });
+    }
+  };
 
   return (
     <FormProvider {...methods}>
@@ -77,6 +151,7 @@ export const RecipeEditor = (props: Partial<Recipe>) => {
               render={({ field }) => (
                 <Checkbox
                   label="Добавить начинки"
+                  disabled={isSubmitting}
                   checked={field.value}
                   onChange={(value) => {
                     field.onChange(value);
@@ -106,7 +181,12 @@ export const RecipeEditor = (props: Partial<Recipe>) => {
               control={control}
               name="hasSauses"
               render={({ field }) => (
-                <Checkbox label="Добавить соуса" checked={field.value} onChange={field.onChange} />
+                <Checkbox
+                  disabled={isSubmitting}
+                  label="Добавить соуса"
+                  checked={field.value}
+                  onChange={field.onChange}
+                />
               )}
             />
             {hasSauses && <AddBlockButton onClick={() => handleAddFilling('sauses')}>Добавить соус</AddBlockButton>}
@@ -125,17 +205,19 @@ export const RecipeEditor = (props: Partial<Recipe>) => {
             ))}
         </div>
         <Stepper />
+        {recipeError && <ErrorMessage>{recipeError}</ErrorMessage>}
+        {hasFieldsErrors && <ErrorMessage>Некоторые поля формы заполнены некорректно</ErrorMessage>}
         <div className="flex gap-4">
-          <Button type="submit">
+          <Button type="submit" disabled={isSubmitting || hasFieldsErrors}>
             <SaveIcon className="w-5 h-5" />
             <span>Сохранить рецепт</span>
           </Button>
-          <Link
+          <a
             href={ROUTES.myrecipes}
             className="px-6 py-3 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-all font-medium"
           >
             Отмена
-          </Link>
+          </a>
         </div>
       </form>
     </FormProvider>

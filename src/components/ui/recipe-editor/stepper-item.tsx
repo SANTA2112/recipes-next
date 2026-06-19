@@ -15,7 +15,7 @@ export const StepperItem = (props: Props) => {
   const { index, handleDelete, showRemoveButton, fieldName } = props;
   const {
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useFormContext<Pick<RecipeFormState, Props['fieldName']>>();
   return (
     <div className="grid grid-cols-[40px_1fr_45px] gap-3 items-start">
@@ -23,6 +23,7 @@ export const StepperItem = (props: Props) => {
         {index + 1}
       </div>
       <Textarea
+        disabled={isSubmitting}
         noMargin
         placeholder={`Опишите шаг ${index + 1}...`}
         isError={Boolean(errors.instructions?.[index]?.message)}

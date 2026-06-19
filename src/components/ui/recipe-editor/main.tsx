@@ -1,5 +1,6 @@
 'use client';
 
+import { useFormStatus } from 'react-dom';
 import { useFormContext } from 'react-hook-form';
 
 import { Input } from '@/components/common/input';
@@ -14,12 +15,13 @@ type MainFormState = Omit<
 export const MainForm = () => {
   const {
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useFormContext<MainFormState>();
 
   return (
     <div className="bg-white rounded-2xl p-6 shadow-sm border-2 border-gray-100 space-y-6">
       <Input
+        disabled={isSubmitting}
         placeholder="Например: Борщ классический"
         labelText="Название блюда"
         isError={Boolean(errors.title?.message)}
@@ -27,6 +29,7 @@ export const MainForm = () => {
         {...register('title', { required: { value: true, message: 'Это поле обязательное' } })}
       />
       <Input
+        disabled={isSubmitting}
         placeholder="https://example.com/image.jpg"
         labelText="Изображение (URL)"
         isError={Boolean(errors.image?.message)}
@@ -40,6 +43,7 @@ export const MainForm = () => {
         })}
       />
       <Input
+        disabled={isSubmitting}
         placeholder="Краткое описание для карточки рецепта"
         labelText="Краткое описание"
         isError={Boolean(errors.shortDesc?.message)}
@@ -47,12 +51,14 @@ export const MainForm = () => {
         {...register('shortDesc', { required: { value: true, message: 'Это поле обязательное' } })}
       />
       <Textarea
+        disabled={isSubmitting}
         placeholder="Подробное описание блюда, история, особенности..."
         labelText="Полное описание"
         {...register('fullDesc')}
       />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Input
+          disabled={isSubmitting}
           placeholder="Например: 10"
           type="number"
           labelText="Количество порций"
@@ -66,6 +72,7 @@ export const MainForm = () => {
           })}
         />
         <Input
+          disabled={isSubmitting}
           placeholder="Например: 90"
           type="number"
           labelText="Время приготовления (в минутах)"

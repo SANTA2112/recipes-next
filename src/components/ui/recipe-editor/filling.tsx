@@ -27,7 +27,7 @@ export const FillingForm = (props: Props) => {
   const {
     control,
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useFormContext<Pick<RecipeFormState, 'filling' | 'sauses'>>();
   const { fields, append, remove } = useFieldArray({ control, name: innerFieldName });
   const fieldKeys: Exclude<keyof Filling, 'ingredients'>[] = ['title', 'description'];
@@ -44,12 +44,14 @@ export const FillingForm = (props: Props) => {
   return (
     <div className="mb-4 last:mb-0 border-b-gray-200 border-b-2 last:border-none pb-1 last:pb-0">
       <Input
+        disabled={isSubmitting}
         placeholder="Название"
         isError={Boolean(errors?.[originalKey]?.[index]?.title?.message)}
         message={errors?.[originalKey]?.[index]?.title?.message || ''}
         {...register(titleKey, { required: { value: true, message: 'Это поле обязательное' } })}
       />
       <Textarea
+        disabled={isSubmitting}
         placeholder="Описание"
         isError={Boolean(errors?.[originalKey]?.[index]?.description?.message)}
         message={errors?.[originalKey]?.[index]?.description?.message || ''}

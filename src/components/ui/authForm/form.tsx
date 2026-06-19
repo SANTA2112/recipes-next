@@ -1,13 +1,17 @@
 'use client';
 import { useState, type ComponentPropsWithoutRef } from 'react';
+import { useFormStatus } from 'react-dom';
 import { useForm, type SubmitHandler } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 import { registerUser } from '@/actions/register';
 import { singInWithCredentials } from '@/actions/sign-in';
 import { Button } from '@/components/common/buttons/button';
+import { ErrorMessage } from '@/components/common/error-message';
 import { Input } from '@/components/common/input';
 import type { FormType } from '@/constants';
 import type { AuthFormState } from '@/constants/form-state';
+import { notifyLoading } from '@/utils/toasts';
 
 interface Props extends ComponentPropsWithoutRef<'form'> {
   type: FormType;
@@ -25,29 +29,61 @@ export const Form = (props: Props) => {
     formState: { errors },
   } = useForm<AuthFormState>();
 
+  const { pending } = useFormStatus();
+
   const onSubmit: SubmitHandler<AuthFormState> = async (data) => {
     setAuthError(null);
+
+    const toastId = notifyLoading();
+
     const { confirm_password, email, password } = data;
     if (type === 'register') {
       if (confirm_password !== data.password) {
         setError('confirm_password', { type: 'value', message: 'Пароли не совпадают' });
+        return toast.update(toastId, {
+          render: 'Пароли не совпадают',
+          autoClose: 3000,
+          type: 'error',
+        });
       }
       const result = await registerUser({ email, password });
       if (result.error) {
         setAuthError(result.error);
+        return toast.update(toastId, {
+          render: result.error,
+          autoClose: 3000,
+          type: 'error',
+        });
       }
+      toast.update(toastId, {
+        render: 'Регистрация прошла успешно!',
+        autoClose: 3000,
+        type: 'success',
+      });
     }
     if (type === 'login') {
       const result = await singInWithCredentials(email, password);
       if (result?.status === 401) {
-        setAuthError('Не верный логин или пароль');
+        const error = 'Не верный логин или пароль';
+        setAuthError(error);
+        return toast.update(toastId, {
+          render: error,
+          autoClose: 3000,
+          type: 'error',
+        });
       }
+      toast.update(toastId, {
+        render: 'Успешный вход!',
+        autoClose: 3000,
+        type: 'success',
+      });
     }
   };
 
   return (
     <form {...rest} className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
       <Input
+        disabled={pending}
         labelText="Логин"
         placeholder="Введите логин"
         required
@@ -61,6 +97,7 @@ export const Form = (props: Props) => {
         })}
       />
       <Input
+        disabled={pending}
         labelText="Пароль"
         placeholder="Введите пароль"
         type="password"
@@ -73,6 +110,7 @@ export const Form = (props: Props) => {
       />
       {type === 'register' && (
         <Input
+          disabled={pending}
           labelText="Повторите пароль"
           placeholder="Повторите пароль"
           type="password"
@@ -84,8 +122,8 @@ export const Form = (props: Props) => {
           })}
         />
       )}
-      <Button>{buttonText}</Button>
-      {authError && <div className="mt-1 text-red-500 font-bold text-center">{authError}</div>}
+      <Button disabled={pending}>{buttonText}</Button>
+      {authError && <ErrorMessage>{authError}</ErrorMessage>}
     </form>
   );
 };
