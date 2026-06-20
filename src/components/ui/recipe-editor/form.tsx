@@ -114,25 +114,29 @@ export const RecipeEditor = (props: Partial<Recipe>) => {
         image,
       };
       if (props.id) {
-        await updateRecipe({ ...converted, id: props.id })
-          .then(() =>
-            toast.update(toastId, {
-              render: 'Рецепт успешно сохранен!',
-              autoClose: 3000,
-              type: 'success',
-            }),
-          )
-          .then(() => router.push(ROUTES.myrecipes));
+        const response = await updateRecipe({ ...converted, id: props.id });
+        if (!response.error) {
+          toast.update(toastId, {
+            render: 'Рецепт успешно сохранен!',
+            autoClose: 3000,
+            type: 'success',
+          });
+          router.push(ROUTES.myrecipes);
+        } else {
+          throw new Error(response.error);
+        }
       } else {
-        await createRecipe(converted)
-          .then(() =>
-            toast.update(toastId, {
-              render: 'Рецепт успешно создан!',
-              autoClose: 3000,
-              type: 'success',
-            }),
-          )
-          .then(() => router.push(ROUTES.myrecipes));
+        const response = await createRecipe(converted);
+        if (!response.error) {
+          toast.update(toastId, {
+            render: 'Рецепт успешно создан!',
+            autoClose: 3000,
+            type: 'success',
+          });
+          router.push(ROUTES.myrecipes);
+        } else {
+          throw new Error(response.error);
+        }
       }
     } catch (e) {
       const error = (e as Error).message;
