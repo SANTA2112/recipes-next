@@ -2,83 +2,85 @@ import { array, email, number, object, string } from 'zod';
 
 export const signInSchema = object({
   email: email({ pattern: /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim, error: 'Некорректный email' })
-    .min(1, 'Email is required')
-    .max(512, 'Email must be at most 512 characters'),
+    .min(1, 'Email обязателен')
+    .max(512, 'Email должен содержать не более 512 символов'),
   password: string({
-    error: 'Password is required',
+    error: 'Пароль обязателен',
   })
-    .min(3, 'Password must be at least 3 characters')
-    .max(32, 'Password must be at most 32 characters'),
+    .min(3, 'Пароль должен содержать не менее 3 символов')
+    .max(32, 'Пароль должен содержать не более 32 символов'),
 });
 
 const ingredientSchema = object({
   title: string({
-    error: 'Ingredient title is required',
+    error: 'Название ингредиента обязателено',
   })
-    .min(1, 'Ingredient title is required')
-    .max(64, 'Ingredient title must be at most 64 characters'),
+    .min(1, 'Название ингредиента обязателено')
+    .max(64, 'Название ингредиента должно содержать не более 64 символов'),
   count: number({
-    error: 'Ingredient count is required',
+    error: 'Граммовка ингредиента обязателена',
   })
-    .min(1, 'Ingredient count is required')
-    .max(10000, 'Ingredient count must be at most 10000'),
+    .min(1, 'Граммовка ингредиента обязателена')
+    .max(10000, 'Граммовка ингредиента должна быть не более 10000'),
   unit: string({
-    error: 'Ingredient unit is required',
+    error: 'Единица измерения ингредиента обязателена',
   })
-    .min(1, 'Ingredient unit is required')
-    .max(64, 'Ingredient unit must be at most 64 characters'),
+    .min(1, 'Единица измерения ингредиента обязателена')
+    .max(64, 'Единица измерения должна содержать не более 64 символов'),
 });
 
 const instructionsSchema = object({
   value: string({
-    error: 'Instruction value is required',
+    error: 'Описание шага обязателено',
   })
-    .min(1, 'Instruction value is required')
-    .max(512, 'Instruction value must be at most 512 characters'),
+    .min(1, 'Описание шага обязателено')
+    .max(512, 'Описание шага должно содержать не более 512 символов'),
 });
 
 const fillingSchema = object({
   title: string({
-    error: 'Filling title is required',
+    error: 'Название начинки обязателено',
   })
-    .min(1, 'Filling title is required')
-    .max(64, 'Filling title must be at most 64 characters'),
+    .min(1, 'Название начинки обязателено')
+    .max(64, 'Название начинки должно содержать не более 64 символов'),
   description: string({
-    error: 'Filling description is required',
+    error: 'Описание начинки обязателено',
   })
-    .min(1, 'Filling description is required')
-    .max(512, 'Filling description must be at most 512 characters'),
-  ingredients: array(ingredientSchema).min(1, 'At least one ingredient is required'),
+    .min(1, 'Описание начинки обязателено')
+    .max(512, 'Описание начинки должно содержать не более 512 символов'),
+  ingredients: array(ingredientSchema).min(1, 'Требуется хотя бы один ингредиент'),
 });
 
 export const recipeSchema = object({
   id: string().optional(),
   title: string({
-    error: 'Recipe title is required',
+    error: 'Название рецепта обязателено',
   })
-    .min(1, 'Recipe title is required')
-    .max(64, 'Recipe title must be at most 64 characters'),
+    .min(1, 'Название рецепта обязателено')
+    .max(64, 'Название рецепта должно содержать не более 64 символов'),
   shortDesc: string({
-    error: 'Short description is required',
+    error: 'Короткое описание обязателено',
   })
-    .min(1, 'Short description is required')
-    .max(128, 'Short description must be at most 128 characters'),
+    .min(1, 'Короткое описание обязателено')
+    .max(128, 'Короткое описание должно содержать не более 128 символов'),
   fullDesc: string({
-    error: 'Full description is required',
-  }).max(512, 'Full description must be at most 512 characters'),
+    error: 'Полное описание обязателено',
+  })
+    .min(1, 'Полное описание обязателено')
+    .max(512, 'Полное описание должно содержать не более 512 символов'),
   image: string().optional(),
   servings: number({
-    error: 'Servings is required',
+    error: 'Количество порций обязателено',
   })
-    .min(1, 'Servings is required')
-    .max(10, 'Servings must be at most 10'),
+    .min(1, 'Количество порций обязателено')
+    .max(10, 'Количество порций должно быть не более 10'),
   cookTime: number({
-    error: 'Cook time is required',
+    error: 'Время приготовления обязателено',
   })
-    .min(1, 'Cook time is required')
-    .max(720, 'Cook time must be at most 720 minutes'),
-  ingredients: array(ingredientSchema).min(1, 'At least one ingredient is required'),
+    .min(1, 'Время приготовления обязателено')
+    .max(720, 'Время приготовления должно быть не более 720 минут'),
+  ingredients: array(ingredientSchema).min(1, 'Требуется хотя бы один ингредиент'),
   sauses: array(fillingSchema).optional().default([]),
   filling: array(fillingSchema).optional().default([]),
-  instructions: array(instructionsSchema).min(1, 'At least one instruction is required'),
+  instructions: array(instructionsSchema).min(1, 'Требуется хотя бы одна инструкция'),
 });
