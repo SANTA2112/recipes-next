@@ -32,6 +32,7 @@ export const ROUTES = {
   newRecipe: '/my-recipes/new',
   recipe: (id: string) => `/recipes/${id}`,
   editRecipe: (id: string) => `/my-recipes/edit/${id}`,
+  recipesPage: (page: number) => `/recipes?p=${page}`,
 } as const;
 
 export const infoCards = [
