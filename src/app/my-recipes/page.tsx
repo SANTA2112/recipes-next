@@ -8,7 +8,7 @@ import { Recipe } from '@/components/ui/cards/recipe';
 import { ROUTES } from '@/constants';
 
 const MyRecipesPage = async () => {
-  const { error, recipes } = await getUserRecipes();
+  const { error, recipes = [] } = await getUserRecipes();
   return (
     <Wrapper>
       <div className="mb-6 flex flex-col items-end">
@@ -20,9 +20,12 @@ const MyRecipesPage = async () => {
           </Button>
         </a>
       </div>
-      {recipes?.length === 0 && <div className="flex justify-center items-center text-2xl">Список рецептов пуст</div>}
+      {recipes.length === 0 && <div className="flex justify-center items-center text-2xl">Список рецептов пуст</div>}
+      {error && <ErrorMessage>{error}</ErrorMessage>}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {recipes ? recipes.map((item) => <Recipe key={item.id} {...item} />) : <ErrorMessage>{error}</ErrorMessage>}
+        {recipes.map((item) => (
+          <Recipe key={item.id} {...item} />
+        ))}
       </div>
     </Wrapper>
   );
