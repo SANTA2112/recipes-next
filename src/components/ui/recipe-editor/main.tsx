@@ -1,6 +1,5 @@
 'use client';
 
-import { useFormStatus } from 'react-dom';
 import { useFormContext } from 'react-hook-form';
 
 import { Input } from '@/components/common/input';
@@ -54,7 +53,7 @@ export const MainForm = () => {
         disabled={isSubmitting}
         placeholder="Подробное описание блюда, история, особенности..."
         labelText="Полное описание"
-        {...register('fullDesc')}
+        {...register('fullDesc', { required: { value: true, message: 'Это поле обязательное' } })}
       />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Input
