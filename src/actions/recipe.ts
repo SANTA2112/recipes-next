@@ -1,6 +1,7 @@
 'use server';
 
 import { getServerSession } from 'next-auth';
+import type { ZodError } from 'zod';
 
 import type { Recipe } from '@/constants/form-state';
 import { prisma } from '@/lib/prisma';
@@ -31,7 +32,8 @@ export const createRecipe = async (credentials: Recipe) => {
 
     return { recipe, error: null };
   } catch (e) {
-    const error = `Ошибка при создании рецепта ${(e as Error).message}`;
+    const message = (e as Error).message;
+    const error = `Ошибка при создании рецепта: "${message.includes('message') ? (JSON.parse(message) as [ZodError])[0].message : message}"`;
     console.error(error);
     return { error };
   }
@@ -50,7 +52,8 @@ export const updateRecipe = async (credentials: Recipe) => {
 
     return { recipe, error: null };
   } catch (e) {
-    const error = `Ошибка при обновлении рецепта ${(e as Error).message}`;
+    const message = (e as Error).message;
+    const error = `Ошибка при обновлении рецепта: "${message.includes('message') ? (JSON.parse(message) as [ZodError])[0].message : message}"`;
     console.error(error);
     return { error };
   }
@@ -71,7 +74,7 @@ export const deleteRecipe = async (credentials: { id: string }) => {
 
     return { id: deleted.id, error: null };
   } catch (e) {
-    const error = `Ошибка при удалении рецепта ${(e as Error).message}`;
+    const error = `Ошибка при удалении рецепта: "${(e as Error).message}"`;
     console.error(error);
     return { error };
   }
@@ -90,7 +93,7 @@ export const getRecipeById = async (credentials: { id: string }) => {
 
     return { recipe, error: null };
   } catch (e) {
-    const error = `Ошибка при получении рецепта ${(e as Error).message}`;
+    const error = `Ошибка при получении рецепта: "${(e as Error).message}"`;
     console.error(error);
     return { error };
   }
@@ -104,7 +107,36 @@ export const getUserRecipes = async () => {
 
     return { recipes, error: null };
   } catch (e) {
-    const error = `Ошибка при получении рецептов ${(e as Error).message}`;
+    const error = `Ошибка при получении рецептов: "${(e as Error).message}"`;
+    console.error(error);
+    return { error };
+  }
+};
+
+export const getRecipes = async (page: number) => {
+  try {
+    const total = await prisma.recipe.count();
+    const limit = 12;
+    const offset = (page - 1) * limit;
+
+    const recipes = await prisma.recipe.findMany({
+      take: limit,
+      skip: offset,
+      orderBy: { title: 'desc' },
+    });
+
+    return {
+      recipes,
+      pagination: {
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit),
+      },
+      error: null,
+    };
+  } catch (e) {
+    const error = `Ошибка при получении рецептов: "${(e as Error).message}"`;
     console.error(error);
     return { error };
   }
