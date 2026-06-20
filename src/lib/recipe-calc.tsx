@@ -4,20 +4,18 @@ import { useMemo, useState } from 'react';
 import MinusIcon from '@/assets/icons/minus.svg';
 import PlusIcon from '@/assets/icons/plus.svg';
 import { CalcButton } from '@/components/common/buttons/calc';
+import type { Recipe } from '@/constants/form-state';
 import { formatServings } from '@/utils/format';
 
-interface Props {
-  servings: number;
-  ingredients: { title: string; count: number; unit: string }[];
-}
+interface Props extends Pick<Recipe, 'ingredients' | 'servings'> {}
 
 export const RecipeCalc = (props: Props) => {
-  const [servings, setServings] = useState(props.servings ?? 1);
+  const [servings, setServings] = useState(Number(props.servings) ?? 1);
   const ingredients = useMemo(
     () =>
       props.ingredients.map((item) => ({
         ...item,
-        count: parseFloat((item.count * (servings / props.servings)).toFixed(1)),
+        count: parseFloat((Number(item.count) * (Number(servings) / Number(props.servings))).toFixed(1)),
       })),
     [servings, props.servings, props.ingredients],
   );
@@ -43,7 +41,7 @@ export const RecipeCalc = (props: Props) => {
           </div>
           {props.servings !== servings && (
             <p className="text-sm text-gray-600 text-center mt-2">
-              Оригинальный рецепт на {formatServings(props.servings)}
+              Оригинальный рецепт на {formatServings(Number(props.servings))}
             </p>
           )}
         </div>
