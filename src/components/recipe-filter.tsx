@@ -6,8 +6,12 @@ import SearchIcon from '@/assets/icons/search.svg';
 import { TabButton } from '@/components/common/buttons/tab';
 import { Input } from '@/components/common/input';
 import { popularIngredients } from '@/constants';
+import type { useFilter } from '@/hooks/useFilter';
 
-export const RecipesFilter = () => {
+interface Props extends Omit<ReturnType<typeof useFilter>, 'filtered'> {}
+
+export const RecipesFilter = (props: Props) => {
+  const { activeFilters, handleChangeFilter } = props;
   const [isOpenFilters, setIsOpenFilters] = useState(false);
 
   const handleChangeIsOpenFilters = () => {
@@ -34,7 +38,9 @@ export const RecipesFilter = () => {
           <h3 className="mb-4 font-semibold text-gray-800">Популярные ингредиенты:</h3>
           <div className="flex flex-wrap gap-2.5">
             {popularIngredients.map((item, i) => (
-              <TabButton key={i}>{item}</TabButton>
+              <TabButton isActive={activeFilters.includes(item)} onClick={() => handleChangeFilter(item)} key={i}>
+                {item}
+              </TabButton>
             ))}
           </div>
         </div>
