@@ -17,8 +17,8 @@ import { notifyLoading } from '@/utils/toasts';
 interface Props {
   title: string;
   shortDesc: string;
-  cookTime: number;
-  servings: number;
+  cookTime: string | number;
+  servings: string | number;
   image: string | null;
   id?: string;
 }
