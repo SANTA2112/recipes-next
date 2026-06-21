@@ -8,7 +8,7 @@ import { BackButton } from '@/components/common/buttons/back';
 import { CookSteps } from '@/components/common/cook-steps';
 import { ProxyImage } from '@/components/common/proxy-image';
 import { Wrapper } from '@/components/common/wrapper';
-import { RecipeCalc } from '@/lib/recipe-calc';
+import { RecipeCalc } from '@/components/recipe-calc';
 import { formatServings, formatTime } from '@/utils/format';
 import { notifyError } from '@/utils/toasts';
 

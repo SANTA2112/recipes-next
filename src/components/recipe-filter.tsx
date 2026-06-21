@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, type Dispatch, type SetStateAction } from 'react';
 
 import FilterIcon from '@/assets/icons/filter.svg';
 import SearchIcon from '@/assets/icons/search.svg';
@@ -8,10 +8,13 @@ import { Input } from '@/components/common/input';
 import { popularIngredients } from '@/constants';
 import type { useFilter } from '@/hooks/useFilter';
 
-interface Props extends Omit<ReturnType<typeof useFilter>, 'filtered'> {}
+interface Props extends Omit<ReturnType<typeof useFilter>, 'filtered' | 'handleResetFilters'> {
+  searchQuery: string;
+  setSearchQuery: Dispatch<SetStateAction<string>>;
+}
 
 export const RecipesFilter = (props: Props) => {
-  const { activeFilters, handleChangeFilter } = props;
+  const { activeFilters, handleChangeFilter, searchQuery, setSearchQuery } = props;
   const [isOpenFilters, setIsOpenFilters] = useState(false);
 
   const handleChangeIsOpenFilters = () => {
@@ -21,7 +24,14 @@ export const RecipesFilter = (props: Props) => {
   return (
     <div className="mb-4">
       <div className="flex flex-col md:flex-row gap-4">
-        <Input noMargin className="w-full" icon={SearchIcon} />
+        <Input
+          noMargin
+          className="w-full"
+          icon={SearchIcon}
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          type="search"
+        />
         <button
           className="flex items-center gap-2 px-6 py-3.5 md:py-0 bg-white border-2 border-gray-200 rounded-2xl hover:border-orange-300 hover:shadow-md transition-all"
           onClick={handleChangeIsOpenFilters}
@@ -29,7 +39,7 @@ export const RecipesFilter = (props: Props) => {
           <FilterIcon className="w-5 h-5 text-gray-600" />
           <span className="font-medium">Фильтры</span>
           <span className="ml-2 px-2.5 py-0.5 bg-linear-to-r from-orange-400 to-red-500 text-white text-sm rounded-full shadow-sm">
-            10
+            {activeFilters.length}
           </span>
         </button>
       </div>
