@@ -80,7 +80,7 @@ export const deleteRecipe = async (credentials: { id: string }) => {
   }
 };
 
-export const getRecipeById = async (credentials: { id: string }) => {
+export const getRecipeByIdWithAuth = async (credentials: { id: string }) => {
   try {
     const { id } = credentials;
     if (!id) throw new Error('id рецепта обязателен');
@@ -88,6 +88,23 @@ export const getRecipeById = async (credentials: { id: string }) => {
     const user = await getUserBySession();
 
     const recipe = (await prisma.recipe.findFirst({ where: { id, userId: user.id } })) as Recipe | null;
+
+    if (!recipe) throw new Error('Не удалось найти рецепт');
+
+    return { recipe, error: null };
+  } catch (e) {
+    const error = `Ошибка при получении рецепта: "${(e as Error).message}"`;
+    console.error(error);
+    return { error };
+  }
+};
+
+export const getRecipeById = async (credentials: { id: string }) => {
+  try {
+    const { id } = credentials;
+    if (!id) throw new Error('id рецепта обязателен');
+
+    const recipe = (await prisma.recipe.findFirst({ where: { id } })) as Recipe | null;
 
     if (!recipe) throw new Error('Не удалось найти рецепт');
 
