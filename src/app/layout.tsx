@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { ToastContainer } from 'react-toastify';
 
 import { Header } from '@/components/common/header';
+import { ScrollToTopButton } from '@/components/scroll-to-top';
 import Provider from '@/components/session-provider';
 
 export const metadata: Metadata = {
@@ -25,6 +26,7 @@ export default function RootLayout({
             <Header />
             <main>{children}</main>
           </div>
+          <ScrollToTopButton />
         </Provider>
       </body>
     </html>
