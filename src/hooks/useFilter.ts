@@ -29,10 +29,11 @@ export const useFilter = (recipes: PrismaRecipe[], query: string) => {
           if (ingredients.length > 0 && activeFilters.length > 0) {
             console.log(ingredients, activeFilters);
             return activeFilters.every((filterItem) =>
-              ingredients.find(
-                (ingredient) =>
-                  ingredient.title.toLowerCase().replaceAll(/ё/g, 'е') ===
-                  filterItem.toLowerCase().replaceAll(/ё/g, 'е'),
+              ingredients.find((ingredient) =>
+                ingredient.title
+                  .toLowerCase()
+                  .replaceAll(/ё/g, 'е')
+                  .includes(filterItem.toLowerCase().replaceAll(/ё/g, 'е')),
               ),
             );
           }
