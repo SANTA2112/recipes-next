@@ -24,8 +24,8 @@ export const RecipeCalc = (props: Props) => {
     <div className="lg:col-span-1">
       <div className="bg-white rounded-2xl p-6 shadow-sm border-2 border-gray-100">
         <h2 className="text-2xl mb-4 font-semibold text-gray-800">Ингредиенты</h2>
-        <div className="mb-6 p-5 bg-linear-to-br from-orange-50 to-red-50 rounded-2xl border-2 border-orange-100">
-          <div className="flex items-center justify-center gap-3 flex-col">
+        <div className="mb-6 p-5 bg-linear-to-br from-orange-50 to-red-50 rounded-2xl border-2 border-orange-100 no-print">
+          <div className="flex items-center justify-center gap-3 flex-col ">
             <span className="text-gray-700 font-medium">Количество порций:</span>
             <div className="flex items-center justify-center">
               <CalcButton onClick={() => setServings((prev) => prev - 1)} disabled={servings < 2}>

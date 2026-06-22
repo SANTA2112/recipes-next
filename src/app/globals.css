@@ -38,3 +38,27 @@ input::-webkit-inner-spin-button {
 input[type='number'] {
   -moz-appearance: textfield;
 }
+
+@media print {
+  @page {
+    size: auto;
+    margin: 20mm;
+  }
+
+  body {
+    background: white;
+    color: black;
+  }
+
+  .fix-recipe-container {
+    display: flex;
+  }
+
+  button,
+  header,
+  nav,
+  footer,
+  .no-print {
+    display: none;
+  }
+}
