@@ -6,10 +6,16 @@ import { ToastContainer } from 'react-toastify';
 import { Header } from '@/components/common/header';
 import { ScrollToTopButton } from '@/components/scroll-to-top';
 import Provider from '@/components/session-provider';
+import { metadataConfig } from '@/constants/metadata';
 
 export const metadata: Metadata = {
-  title: 'Русская кухня',
-  description: 'На этом сайте собраны рецепты русской кухни',
+  title: metadataConfig.title,
+  description: metadataConfig.description,
+  openGraph: {
+    title: metadataConfig.title,
+    description: metadataConfig.description,
+    type: 'website',
+  },
 };
 
 export default function RootLayout({
