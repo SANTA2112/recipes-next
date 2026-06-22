@@ -1,4 +1,5 @@
 'use client';
+import { redirect } from 'next/navigation';
 import { useState, type ComponentPropsWithoutRef } from 'react';
 import { useFormStatus } from 'react-dom';
 import { useForm, type SubmitHandler } from 'react-hook-form';
@@ -9,7 +10,7 @@ import { singInWithCredentials } from '@/actions/sign-in';
 import { Button } from '@/components/common/buttons/button';
 import { ErrorMessage } from '@/components/common/error-message';
 import { Input } from '@/components/common/input';
-import type { FormType } from '@/constants';
+import { ROUTES, type FormType } from '@/constants';
 import type { AuthFormState } from '@/constants/form-state';
 import { notifyLoading } from '@/utils/toasts';
 
@@ -60,6 +61,7 @@ export const Form = (props: Props) => {
         autoClose: 3000,
         type: 'success',
       });
+      redirect(ROUTES.login);
     }
     if (type === 'login') {
       const result = await singInWithCredentials(email, password);
@@ -77,6 +79,7 @@ export const Form = (props: Props) => {
         autoClose: 3000,
         type: 'success',
       });
+      redirect(ROUTES.recipes);
     }
   };
 
