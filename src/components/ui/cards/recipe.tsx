@@ -74,11 +74,11 @@ export const Recipe = (props: Props) => {
         <div className="flex items-center gap-4 text-sm text-gray-500">
           <div className="flex items-center gap-1.5">
             <ClockIcon className="w-4 h-4 text-orange-500" />
-            <span className="shrink-0">{formatTime(cookTime)}</span>
+            <span className="shrink-0">{formatTime(Number(cookTime))}</span>
           </div>
           <div className="flex items-center gap-1.5">
             <PeopleIcon className="w-4 h-4 text-orange-500" />
-            <span className="shrink-0">{formatServings(servings)}</span>
+            <span className="shrink-0">{formatServings(Number(servings))}</span>
           </div>
         </div>
         {id && (
