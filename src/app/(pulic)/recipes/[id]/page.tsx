@@ -65,7 +65,8 @@ const RecipePage = async ({ params }: { params: Promise<{ id: string }> }) => {
           <RecipeCalc ingredients={ingredients} servings={servings} />
           <CookSteps instructions={instructions} />
         </div>
-        <div className="flex flex-col items-end md:flex-row gap-x-4 justify-end">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-4 justify-end">
+          <div className="col-span-1" />
           {filling.length > 0 && <Filling heading="Начинки:" filling={filling} />}
           {sauses.length > 0 && <Filling heading="Соуса:" filling={sauses} />}
         </div>
