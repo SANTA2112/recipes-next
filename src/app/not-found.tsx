@@ -7,7 +7,7 @@ import { Heading } from '@/components/common/heading';
 import { Wrapper } from '@/components/common/wrapper';
 import { ROUTES } from '@/constants';
 
-const notFoundPage = () => {
+const NotFoundPage = () => {
   return (
     <Wrapper className="h-100 translate-y-1/2 flex justify-center items-center flex-col">
       <div className="flex justify-center mb-4">
@@ -26,4 +26,4 @@ const notFoundPage = () => {
   );
 };
 
-export default notFoundPage;
+export default NotFoundPage;
