@@ -11,15 +11,10 @@ import { Wrapper } from '@/components/common/wrapper';
 import { RecipeCalc } from '@/components/recipe-calc';
 import { Filling } from '@/components/ui/filling';
 import { formatServings, formatTime } from '@/utils/format';
-import { notifyError } from '@/utils/toasts';
 
 const RecipePage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
-  const { error, recipe } = await getRecipeById({ id });
-
-  if (error) {
-    notifyError(error);
-  }
+  const { recipe } = await getRecipeById({ id });
 
   if (!recipe) notFound();
 

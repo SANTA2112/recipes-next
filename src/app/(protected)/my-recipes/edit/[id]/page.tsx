@@ -4,15 +4,10 @@ import { getRecipeByIdWithAuth } from '@/actions/recipe';
 import { Wrapper } from '@/components/common/wrapper';
 import { RecipeEditor } from '@/components/ui/recipe-editor/form';
 import { ROUTES } from '@/constants';
-import { notifyError } from '@/utils/toasts';
 
 export default async function MyRecipePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const { error, recipe } = await getRecipeByIdWithAuth({ id });
-
-  if (error) {
-    notifyError(error);
-  }
+  const { recipe } = await getRecipeByIdWithAuth({ id });
 
   if (!recipe) notFound();
 
