@@ -9,6 +9,7 @@ import { CookSteps } from '@/components/common/cook-steps';
 import { ProxyImage } from '@/components/common/proxy-image';
 import { Wrapper } from '@/components/common/wrapper';
 import { RecipeCalc } from '@/components/recipe-calc';
+import { Filling } from '@/components/ui/filling';
 import { formatServings, formatTime } from '@/utils/format';
 import { notifyError } from '@/utils/toasts';
 
@@ -22,7 +23,7 @@ const RecipePage = async ({ params }: { params: Promise<{ id: string }> }) => {
 
   if (!recipe) notFound();
 
-  const { cookTime, image, servings, shortDesc, title, ingredients, instructions } = recipe;
+  const { cookTime, image, servings, shortDesc, title, ingredients, instructions, filling, fullDesc, sauses } = recipe;
 
   return (
     <div>
@@ -32,7 +33,8 @@ const RecipePage = async ({ params }: { params: Promise<{ id: string }> }) => {
         <div className="absolute bottom-0 left-0 right-0 container mx-auto px-4 pb-8 flex flex-col items-start">
           <BackButton />
           <h1 className="text-4xl text-white mb-4">{title}</h1>
-          <p className="text-white/90 text-lg mb-4">{shortDesc}</p>
+          <p className="text-white/90 text-lg mb-4 line-clamp-2">{shortDesc}</p>
+          <p className="text-white/90 text-lg mb-4 line-clamp-2">{fullDesc}</p>
           <div className="flex items-center gap-6 text-white">
             <div className="flex items-center gap-2">
               <ClockIcon className="w-5 h-5" />
@@ -48,6 +50,7 @@ const RecipePage = async ({ params }: { params: Promise<{ id: string }> }) => {
       <div className="container mx-auto px-4 pb-8 flex-col items-start hidden fix-recipe-container">
         <h1 className="text-4xl text-white mb-4">{title}</h1>
         <p className="text-white/90 text-lg mb-4">{shortDesc}</p>
+        <p className="text-white/90 text-lg mb-4">{fullDesc}</p>
         <div className="flex items-center gap-6 text-white">
           <div className="flex items-center gap-2">
             <ClockIcon className="w-5 h-5" />
@@ -66,6 +69,10 @@ const RecipePage = async ({ params }: { params: Promise<{ id: string }> }) => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <RecipeCalc ingredients={ingredients} servings={servings} />
           <CookSteps instructions={instructions} />
+        </div>
+        <div className="flex flex-col items-end md:flex-row gap-x-4 justify-end">
+          {filling.length > 0 && <Filling heading="Начинки:" filling={filling} />}
+          {sauses.length > 0 && <Filling heading="Соуса:" filling={sauses} />}
         </div>
       </Wrapper>
     </div>
