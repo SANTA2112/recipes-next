@@ -9,10 +9,11 @@ const defaultConfig: ToastOptions = {
 };
 
 export function notifySuccess(message: string = 'Успешная отправка!') {
-  toast.success(message, {
+  return toast(message, {
     ...defaultConfig,
     autoClose: 3000,
     className: 'bg-green-50 text-green-800 border border-green-200',
+    type: 'success',
   });
 }
 
@@ -25,9 +26,10 @@ export function notifyLoading(message: string = 'Обработка данных
 }
 
 export function notifyError(message: string = 'Произошла ошибка!') {
-  toast.error(message, {
+  return toast(message, {
     ...defaultConfig,
     autoClose: 3000,
     className: 'bg-red-50 text-red-800 border border-red-200',
+    type: 'error',
   });
 }
