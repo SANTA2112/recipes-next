@@ -19,8 +19,8 @@ export const IngredietnsForm = (props: Props) => {
     append({ count: '', title: '', unit: '' });
   };
 
-  const handleRemoveIngredient = (id: string) => {
-    remove(Number(id));
+  const handleRemoveIngredient = (id: number) => {
+    remove(id);
   };
 
   return (
@@ -31,7 +31,7 @@ export const IngredietnsForm = (props: Props) => {
           <IngredientItem
             key={item.id}
             showRemoveButton={fields.length > 1}
-            handleDelete={() => handleRemoveIngredient(item.id)}
+            handleDelete={() => handleRemoveIngredient(index)}
             index={index}
             fieldName={fieldName}
           />
