@@ -1,27 +1,8 @@
-import type { ComponentType, SVGProps } from 'react';
-
 import BookIcon from '@/assets/icons/book.svg';
 import HeartIcon from '@/assets/icons/heart.svg';
 import PeopleIcon from '@/assets/icons/people.svg';
 import QualityIcon from '@/assets/icons/quality.svg';
-
-export interface Achievement {
-  title: string;
-  description: string;
-  icon: ComponentType<SVGProps<SVGSVGElement>>;
-}
-
-export type FormType = Extract<keyof typeof ROUTES, 'login' | 'register'>;
-
-interface FormOptionsByType {
-  text: string;
-  linkText: string;
-  link: string;
-  title: string;
-  description: string;
-}
-
-export type FormInfoByPath = Record<FormType, FormOptionsByType>;
+import type { Achievement, FormInfoByPath } from '@/constants/types';
 
 export const ROUTES = {
   recipes: '/recipes',
