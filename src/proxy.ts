@@ -7,13 +7,14 @@ import { ROUTES } from '@/constants';
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  const isPublicRoute =
-    pathname === ROUTES.login ||
-    pathname === ROUTES.register ||
-    pathname.startsWith('/recipes') ||
-    pathname.startsWith('/about') ||
-    pathname.startsWith('/api/image-proxy') ||
-    pathname.startsWith('/api/auth');
+  const isPublicRoute = [
+    ROUTES.login,
+    ROUTES.register,
+    ROUTES.recipes,
+    ROUTES.about,
+    '/api/image-proxy',
+    '/api/auth',
+  ].some((route) => pathname.startsWith(route));
 
   if (isPublicRoute) {
     return NextResponse.next();
