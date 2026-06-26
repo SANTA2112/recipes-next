@@ -2,7 +2,7 @@ import { useFieldArray, useFormContext } from 'react-hook-form';
 
 import { AddBlockButton } from '@/components/common/buttons/add-block';
 import { StepperItem } from '@/components/ui/recipe-editor/stepper-item';
-import type { RecipeFormState } from '@/constants/form-state';
+import type { RecipeFormState } from '@/constants/form-state.types';
 
 export const Stepper = () => {
   const fieldName = 'instructions';

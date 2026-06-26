@@ -1,4 +1,4 @@
-import type { Recipe } from '@/constants/form-state';
+import type { Recipe } from '@/constants/form-state.types';
 
 interface Props extends Pick<Recipe, 'instructions'> {}
 

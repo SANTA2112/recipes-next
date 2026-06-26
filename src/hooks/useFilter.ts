@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 
-import type { Recipe } from '@/constants/form-state';
+import type { Recipe } from '@/constants/form-state.types';
 import type { Recipe as PrismaRecipe } from '@/generated/prisma/client';
 
 export const useFilter = (recipes: PrismaRecipe[], query: string) => {

@@ -4,7 +4,7 @@ import { useFormContext } from 'react-hook-form';
 
 import { Input } from '@/components/common/input';
 import { Textarea } from '@/components/common/textarea';
-import type { RecipeFormState } from '@/constants/form-state';
+import type { RecipeFormState } from '@/constants/form-state.types';
 
 type MainFormState = Omit<
   RecipeFormState,

@@ -3,7 +3,7 @@ import { useFormContext } from 'react-hook-form';
 import { DeleteButton } from '@/components/common/buttons/delete';
 import { Input } from '@/components/common/input';
 import type { InnerKeyName } from '@/components/ui/recipe-editor/filling';
-import type { Ingredient, RecipeFormState } from '@/constants/form-state';
+import type { Ingredient, RecipeFormState } from '@/constants/form-state.types';
 
 interface Props {
   showRemoveButton?: boolean;

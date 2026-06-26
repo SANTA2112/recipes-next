@@ -6,7 +6,7 @@ import { Input } from '@/components/common/input';
 import { Textarea } from '@/components/common/textarea';
 import type { FillingsKeysNames } from '@/components/ui/recipe-editor/form';
 import { IngredientItem } from '@/components/ui/recipe-editor/ingredient-item';
-import type { Filling, RecipeFormState } from '@/constants/form-state';
+import type { Filling, RecipeFormState } from '@/constants/form-state.types';
 
 interface Props {
   deleteFilling?: () => void;

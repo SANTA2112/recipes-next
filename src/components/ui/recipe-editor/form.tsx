@@ -15,7 +15,7 @@ import { IngredietnsForm } from '@/components/ui/recipe-editor/ingredietns';
 import { MainForm } from '@/components/ui/recipe-editor/main';
 import { Stepper } from '@/components/ui/recipe-editor/stepper';
 import { ROUTES } from '@/constants';
-import { type Recipe, type RecipeFormState } from '@/constants/form-state';
+import { type Recipe, type RecipeFormState } from '@/constants/form-state.types';
 import { notifyLoading } from '@/utils/toasts';
 
 export type FillingsKeysNames = Extract<keyof RecipeFormState, 'filling' | 'sauses'>;

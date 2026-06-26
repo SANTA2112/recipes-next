@@ -1,4 +1,4 @@
-import type { Achievement } from '@/constants';
+import type { Achievement } from '@/constants/types';
 
 interface Props {
   achievement: Achievement;

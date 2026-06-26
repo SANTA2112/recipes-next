@@ -3,7 +3,7 @@
 import { getServerSession } from 'next-auth';
 import type { ZodError } from 'zod';
 
-import type { Recipe } from '@/constants/form-state';
+import type { Recipe } from '@/constants/form-state.types';
 import { prisma } from '@/lib/prisma';
 import { recipeSchema } from '@/lib/zod';
 

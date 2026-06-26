@@ -2,7 +2,7 @@ import { useFormContext } from 'react-hook-form';
 
 import { DeleteButton } from '@/components/common/buttons/delete';
 import { Textarea } from '@/components/common/textarea';
-import type { RecipeFormState } from '@/constants/form-state';
+import type { RecipeFormState } from '@/constants/form-state.types';
 
 interface Props {
   index: number;

@@ -10,8 +10,9 @@ import { singInWithCredentials } from '@/actions/sign-in';
 import { Button } from '@/components/common/buttons/button';
 import { ErrorMessage } from '@/components/common/error-message';
 import { Input } from '@/components/common/input';
-import { ROUTES, type FormType } from '@/constants';
-import type { AuthFormState } from '@/constants/form-state';
+import { ROUTES } from '@/constants';
+import type { AuthFormState } from '@/constants/form-state.types';
+import type { FormType } from '@/constants/types';
 import { notifyLoading } from '@/utils/toasts';
 
 interface Props extends ComponentPropsWithoutRef<'form'> {
