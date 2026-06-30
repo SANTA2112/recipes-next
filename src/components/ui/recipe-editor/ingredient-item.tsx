@@ -32,6 +32,8 @@ export const IngredientItem = (props: Props) => {
           noMargin
           placeholder="Кол-во"
           type="number"
+          min="0.1"
+          max="10000"
           required
           {...register(countKey, { valueAsNumber: true })}
         />
