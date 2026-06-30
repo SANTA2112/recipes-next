@@ -1,4 +1,4 @@
-import { array, email, number, object, string } from 'zod';
+import { array, email, float32, number, object, string } from 'zod';
 
 export const signInSchema = object({
   email: email({ pattern: /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim, error: 'Некорректный email' })
@@ -17,10 +17,10 @@ const ingredientSchema = object({
   })
     .min(1, 'Название ингредиента обязателено')
     .max(64, 'Название ингредиента должно содержать не более 64 символов'),
-  count: number({
+  count: float32({
     error: 'Граммовка ингредиента обязателена',
   })
-    .min(1, 'Граммовка ингредиента обязателена')
+    .min(0.1, 'Граммовка ингредиента обязателена')
     .max(10000, 'Граммовка ингредиента должна быть не более 10000'),
   unit: string({
     error: 'Единица измерения ингредиента обязателена',
